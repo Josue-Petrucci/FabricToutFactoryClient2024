@@ -5,20 +5,27 @@ import java.util.ArrayList;
 
 import javax.ws.rs.core.UriBuilder;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.*;
 import com.sun.jersey.api.client.config.*;
 
 public abstract class DAO<T> {
 	private WebResource resource;
+	private ObjectMapper mapper;
 	
-	public DAO( ) {
+	public DAO() {
 		ClientConfig config = new DefaultClientConfig();
 		Client client = Client.create(config);
 		resource = client.resource(getBaseURI());
+		mapper = new ObjectMapper();
 	}
 	
 	public WebResource getResource() {
 		return resource;
+	}
+	
+	public ObjectMapper getMapper() {
+		return mapper;
 	}
 	
 	private static URI getBaseURI() {
