@@ -70,4 +70,74 @@ public class Machine implements Serializable{
 	}
 
 	public Machine() {}
+	
+	public Machine(int id, MachineType type, double size, MachineStatus status, Site site, Zone zone) {
+		this.id = id;
+		this.type = type;
+		this.size = size;
+		this.status = status;
+		this.site = site;
+		this.zones = new ArrayList<Zone>();
+		addZone(zone);
+	}
+
+	public Machine(int id, MachineType type, double size, MachineStatus status, Site site, 
+			ArrayList<Zone> zones) {
+		this.id = id;
+		this.type = type;
+		this.size = size;
+		this.status = status;
+		this.site = site;
+		if(zones.size() >= 1)
+			this.zones = zones;
+		else
+			throw new IllegalArgumentException("Machine zone list must not be empty");
+		this.maintenance = new ArrayList<Maintenance>();
+	}
+
+	public Machine(int id, MachineType type, double size, MachineStatus status, Site site, ArrayList<Zone> zones,
+			ArrayList<Maintenance> maintenance) {
+		this.id = id;
+		this.type = type;
+		this.size = size;
+		this.status = status;
+		this.site = site;
+		if(zones.size() >= 1)
+			this.zones = zones;
+		else
+			throw new IllegalArgumentException("Machine zone list must not be empty");
+		this.maintenance = maintenance;
+	}
+	
+	//Methods
+	public void addZone(Zone zone) {
+		if(!zones.contains(zone)) {
+			zones.add(zone);
+		}
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Machine m = null;
+		if(obj == null || obj.getClass() == this.getClass()) {
+			return true;
+		}
+		
+		m = (Machine)obj;
+		if(m.getId() == this.getId() & m.getSite().getName().equals(this.getSite().getName())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return "Machine [id=" + id + ", type=" + type + ", size=" + size + ", status=" + status + "]";
+	}
 }
