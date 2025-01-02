@@ -2,6 +2,10 @@ package be.petrucci.dao;
 
 import java.util.ArrayList;
 
+import javax.ws.rs.core.MediaType;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+
 import be.petrucci.javabeans.Machine;
 
 public class MachineDAO extends DAO<Machine>{
@@ -36,8 +40,18 @@ public class MachineDAO extends DAO<Machine>{
 
 	@Override
 	public ArrayList<Machine> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Machine> machines = new ArrayList<Machine>();
+		try {
+			String response = getResource()
+					.path("machine")
+					.accept(MediaType.APPLICATION_JSON)
+					.get(String.class);
+			
+			machines = getMapper().readValue(response, new TypeReference<ArrayList<Machine>>() {});
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return machines;
 	}
 
 }

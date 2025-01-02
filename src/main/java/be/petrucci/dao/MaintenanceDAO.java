@@ -2,6 +2,16 @@ package be.petrucci.dao;
 
 import java.util.ArrayList;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.jackson.JacksonFeature;
+
 import be.petrucci.javabeans.Maintenance;
 
 public class MaintenanceDAO extends DAO<Maintenance>{
@@ -12,8 +22,26 @@ public class MaintenanceDAO extends DAO<Maintenance>{
 
 	@Override
 	public boolean create(Maintenance obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+	        String json = getMapper().writeValueAsString(obj);
+	       
+	        ClientConfig config = new ClientConfig().register(JacksonFeature.class);
+	        Client client = ClientBuilder.newClient(config);
+
+	        WebTarget target = client.target(getResource().getURI()).path("maintenance");
+	        Response response = target
+	        		.request(MediaType.APPLICATION_JSON) 
+	                .post(Entity.entity(json, MediaType.APPLICATION_JSON)); 
+
+	        if (response.getStatus() == Response.Status.CREATED.getStatusCode()) {
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
 	}
 
 	@Override

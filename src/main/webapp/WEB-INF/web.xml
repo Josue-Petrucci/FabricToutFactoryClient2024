@@ -9,4 +9,18 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <!-- Servlet -->
+  <servlet>
+  	<servlet-name>addMaintenance</servlet-name>
+  	<servlet-class>be.petrucci.servlets.AddMaintenanceServlet</servlet-class>
+  </servlet>
+  
+  <!-- Servlet Mapping -->
+  <servlet-mapping>
+  	<servlet-name>addMaintenance</servlet-name>
+  	<url-pattern>/AddMaintenance</url-pattern>
+  	<url-pattern>/addmaintenance</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
