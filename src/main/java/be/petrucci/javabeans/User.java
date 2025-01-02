@@ -1,8 +1,10 @@
 package be.petrucci.javabeans;
 
 import java.io.Serializable;
+import java.util.Objects;
+import be.petrucci.dao.UserDAO;
 
-public abstract class User implements Serializable {
+public class User implements Serializable {
 	private static final long serialVersionUID = -5407718036535653341L;
 	private int id;
 	private String lastname;
@@ -69,4 +71,65 @@ public abstract class User implements Serializable {
 	}
 	
 	public User() {}
+
+	public User(int id, String lastname, String firstname, int age, String address, String matricule, String password) {
+		super();
+		this.id = id;
+		this.lastname = lastname;
+		this.firstname = firstname;
+		this.age = age;
+		this.address = address;
+		this.matricule = matricule;
+		this.password = password;
+	}
+	
+	//Methods
+	public static User login(User user) {
+		if (!user.paramsAreValid()) {
+			User newUser = findUser(user);
+			return newUser;
+        }
+		return null;
+	}
+	
+	private boolean paramsAreValid() {
+		if(	this.getMatricule() == null || this.getMatricule().equals("") 
+				|| this.getMatricule().length() < 7 || this.getPassword() == null 
+				|| this.getPassword().equals("") || this.getPassword().length() < 5) {
+			return true;
+		}
+		return false;
+	}
+
+	
+	//DAO Methods
+	private static User findUser(User user) {
+		UserDAO userDAO = new UserDAO();
+		return userDAO.find(user);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(address, age, firstname, id, lastname, matricule, password);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(address, other.address) && age == other.age && Objects.equals(firstname, other.firstname)
+				&& id == other.id && Objects.equals(lastname, other.lastname)
+				&& Objects.equals(matricule, other.matricule) && Objects.equals(password, other.password);
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", lastname=" + lastname + ", firstname=" + firstname + ", age=" + age + ", address="
+				+ address + ", matricule=" + matricule + ", password=" + password + "]";
+	}
 }
