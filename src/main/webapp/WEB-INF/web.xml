@@ -45,6 +45,10 @@
   	<servlet-name>AddMachineServlet</servlet-name>
   	<servlet-class>be.petrucci.servlets.AddMachineServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>addMaintenance</servlet-name>
+  	<servlet-class>be.petrucci.servlets.AddMaintenanceServlet</servlet-class>
+  </servlet>
   
   <servlet-mapping>
   	<servlet-name>HomServlet</servlet-name>
@@ -77,4 +81,11 @@
   	<url-pattern>/addmachine</url-pattern>
   	<url-pattern>/AddMachine</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>addMaintenance</servlet-name>
+  	<url-pattern>/AddMaintenanceServlet</url-pattern>
+  	<url-pattern>/AddMaintenance</url-pattern>
+  	<url-pattern>/addmaintenance</url-pattern>
+  </servlet-mapping>
 </web-app>
+

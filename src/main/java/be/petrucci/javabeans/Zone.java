@@ -130,7 +130,7 @@ public class Zone implements Serializable {
 	@Override
 	public boolean equals(Object obj) {
 		Zone z = null;
-		if(obj == null || obj.getClass() == this.getClass()) {
+		if(obj == null || obj.getClass() != this.getClass()) {
 			return true;
 		}
 		

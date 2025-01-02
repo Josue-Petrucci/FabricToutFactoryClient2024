@@ -129,11 +129,16 @@ public class Machine implements Serializable{
 	public boolean createMachine(MachineDAO dao) {
 		return dao.create(this);
 	}
+
+	public static ArrayList<Machine> getAllMachine(){
+		MachineDAO dao = new MachineDAO();
+		return dao.findAll();
+	}
 	
 	@Override
 	public boolean equals(Object obj) {
 		Machine m = null;
-		if(obj == null || obj.getClass() == this.getClass()) {
+		if(obj == null || obj.getClass() != this.getClass()) {
 			return true;
 		}
 		

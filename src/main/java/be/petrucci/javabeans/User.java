@@ -73,7 +73,6 @@ public class User implements Serializable {
 	public User() {}
 
 	public User(int id, String lastname, String firstname, int age, String address, String matricule, String password) {
-		super();
 		this.id = id;
 		this.lastname = lastname;
 		this.firstname = firstname;

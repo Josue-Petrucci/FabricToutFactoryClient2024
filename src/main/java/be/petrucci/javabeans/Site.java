@@ -81,11 +81,19 @@ public class Site implements Serializable {
 
 	public Site() {}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(city, factory, id, listMaintenanceManagers, listMaintenanceWorkers, machines, name, zones);
+	public Site(int idSite, String nameSite, String city, int idFactory, String nameFactory) {
+		this.id = idSite;
+		this.name = nameSite;
+		this.city = city;
+		this.factory = new Factory(idFactory, nameFactory, this);
 	}
-
+	
+	public void addZone(Zone zone) {
+		if(!zones.contains(zone)) {
+			zones.add(zone);
+		}
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -101,7 +109,12 @@ public class Site implements Serializable {
 				&& Objects.equals(machines, other.machines) && Objects.equals(name, other.name)
 				&& Objects.equals(zones, other.zones);
 	}
-
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(city, factory, id, listMaintenanceManagers, listMaintenanceWorkers, machines, name, zones);
+	}
+	
 	@Override
 	public String toString() {
 	    return String.format(

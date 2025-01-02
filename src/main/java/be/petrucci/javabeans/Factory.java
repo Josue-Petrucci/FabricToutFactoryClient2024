@@ -68,7 +68,7 @@ public class Factory implements Serializable {
 	@Override
 	public boolean equals(Object obj) {
 		Factory f = null;
-		if(obj == null || obj.getClass() == this.getClass()) {
+		if(obj == null || obj.getClass() != this.getClass()) {
 			return true;
 		}
 		
