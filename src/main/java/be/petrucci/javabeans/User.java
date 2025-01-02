@@ -100,8 +100,14 @@ public class User implements Serializable {
 		}
 		return false;
 	}
-
 	
+	public boolean isRole(String role) {
+	    if (matricule == null || matricule.length() < 5) {
+	        return false;
+	    }
+	    return matricule.substring(0, 5).equalsIgnoreCase(role);
+	}
+
 	//DAO Methods
 	private static User findUser(User user) {
 		UserDAO userDAO = new UserDAO();

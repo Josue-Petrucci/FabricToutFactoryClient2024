@@ -15,6 +15,14 @@
 	<filter-name>LoginFilter</filter-name>
 	<filter-class>be.petrucci.filters.LoginFilter</filter-class>
   </filter>
+  <filter-mapping>
+      <filter-name>LoginFilter</filter-name>
+      <servlet-name>AddZoneToMachineServlet</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+      <filter-name>LoginFilter</filter-name>
+      <servlet-name>AddMachineServlet</servlet-name>
+  </filter-mapping>
   
   <!-- SERVLETS -->
   <servlet>
@@ -28,6 +36,14 @@
   <servlet>
   	<servlet-name>LogoutServlet</servlet-name>
   	<servlet-class>be.petrucci.servlets.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>AddZoneToMachineServlet</servlet-name>
+  	<servlet-class>be.petrucci.servlets.AddZoneToMachineServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>AddMachineServlet</servlet-name>
+  	<servlet-class>be.petrucci.servlets.AddMachineServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -48,5 +64,17 @@
   	<url-pattern>/LogoutServlet</url-pattern>
   	<url-pattern>/logout</url-pattern>
   	<url-pattern>/Logout</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AddZoneToMachineServlet</servlet-name>
+  	<url-pattern>/AddZoneToMachineServlet</url-pattern>
+  	<url-pattern>/addzonetomachine</url-pattern>
+  	<url-pattern>/AddZoneToMachine</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AddMachineServlet</servlet-name>
+  	<url-pattern>/AddMachineServlet</url-pattern>
+  	<url-pattern>/addmachine</url-pattern>
+  	<url-pattern>/AddMachine</url-pattern>
   </servlet-mapping>
 </web-app>

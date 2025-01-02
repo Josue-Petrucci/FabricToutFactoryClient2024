@@ -1,7 +1,9 @@
 package be.petrucci.dao;
 
 import java.util.ArrayList;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.jersey.api.client.ClientResponse;
+import javax.ws.rs.core.MediaType;
 import be.petrucci.javabeans.Machine;
 
 public class MachineDAO extends DAO<Machine>{
@@ -12,8 +14,24 @@ public class MachineDAO extends DAO<Machine>{
 
 	@Override
 	public boolean create(Machine obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+
+            String json = objectMapper.writeValueAsString(obj);
+
+            ClientResponse res = this.getResource()
+                    .path("machine")
+                    .type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .post(ClientResponse.class, json);
+	        if (res.getStatus() == 201) {
+	            return true;
+	        }
+	    } catch (Exception ex) {
+	        System.out.println(ex.getMessage());
+	        return false;
+	    }
+	    return false;
 	}
 
 	@Override

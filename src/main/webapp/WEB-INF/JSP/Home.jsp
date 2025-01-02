@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="be.petrucci.javabeans.User" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,12 +20,22 @@
        <p><%= request.getAttribute("fail")%></p> 
        </div>
     <% } %>
-	<% 
-        if (session.getAttribute("user") == null) { 
-    %>
+	<%
+	    User user = (User) session.getAttribute("user");
+	    if (user == null) {
+	%>
         <button onclick="window.location='/FabricToutFactoryClient2024/LoginServlet'">Login</button>
-    <% } else { %>
-    	<%@ include file="LogoutPartialView.jsp" %>
-    <% } %>
+		<%
+		    } else {
+		        if (user.isRole("Admin") || user.isRole("PuEmp")) {
+				%>
+			        <button onclick="window.location='/FabricToutFactoryClient2024/AddZoneToMachineServlet'">Purchase new machine</button>
+				<%
+				}
+		%>
+	        <%@ include file="LogoutPartialView.jsp" %>
+		<%
+    	}
+	%>
 </body>
 </html>
