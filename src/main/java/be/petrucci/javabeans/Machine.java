@@ -2,6 +2,7 @@ package be.petrucci.javabeans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import be.petrucci.dao.MachineDAO;
 
 public class Machine implements Serializable{
 	private static final long serialVersionUID = -1046535624725789699L;
@@ -116,6 +117,19 @@ public class Machine implements Serializable{
 		}
 	}
 	
+	public boolean addMachine() {
+		MachineDAO machineDAO = new MachineDAO();
+    	if (this.size <= 0 || !createMachine(machineDAO)) {
+	        return false;
+	    }
+	    return true;
+	}
+	
+	//DAO methods
+	public boolean createMachine(MachineDAO dao) {
+		return dao.create(this);
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		Machine m = null;
@@ -138,6 +152,7 @@ public class Machine implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Machine [id=" + id + ", type=" + type + ", size=" + size + ", status=" + status + "]";
+		return "Machine [id=" + id + ", type=" + type + ", size=" + size + ", status=" + status + ", "+ site + ", "+
+				this.zones+ "]";
 	}
 }

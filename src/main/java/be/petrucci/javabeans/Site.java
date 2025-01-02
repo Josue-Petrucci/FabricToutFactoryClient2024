@@ -2,6 +2,7 @@ package be.petrucci.javabeans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Site implements Serializable {
 	private static final long serialVersionUID = -2933081182814214954L;
@@ -79,4 +80,35 @@ public class Site implements Serializable {
 	}
 
 	public Site() {}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(city, factory, id, listMaintenanceManagers, listMaintenanceWorkers, machines, name, zones);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Site other = (Site) obj;
+		return Objects.equals(city, other.city) && Objects.equals(factory, other.factory) && id == other.id
+				&& Objects.equals(listMaintenanceManagers, other.listMaintenanceManagers)
+				&& Objects.equals(listMaintenanceWorkers, other.listMaintenanceWorkers)
+				&& Objects.equals(machines, other.machines) && Objects.equals(name, other.name)
+				&& Objects.equals(zones, other.zones);
+	}
+
+	@Override
+	public String toString() {
+	    return String.format(
+	        "Site [Name: %s, City: %s, %s]", 
+	        name, 
+	        city, 
+	        factory.toString()
+	    );
+	}
 }

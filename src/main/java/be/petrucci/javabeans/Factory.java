@@ -2,6 +2,7 @@ package be.petrucci.javabeans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import be.petrucci.dao.FactoryDAO;
 
 public class Factory implements Serializable {
 	private static final long serialVersionUID = -4655307262531040065L;
@@ -34,4 +35,61 @@ public class Factory implements Serializable {
 	}
 
 	public Factory() {}
+	
+	public Factory(int id, String name, Site site) {
+		this.id = id;
+		this.name = name;
+		sites = new ArrayList<Site>();
+		addSite(site);
+	}
+
+	public Factory(int id, String name, ArrayList<Site> sites) {
+		this.id = id;
+		this.name = name;
+		if(sites.size() < 1)
+			throw new IllegalArgumentException("A factory can only exist with sites in it");
+		else
+			this.sites = sites;
+	}
+
+	//Methods
+	public void addSite(Site site) {
+		if(!sites.contains(site)) {
+			sites.add(site);
+		}
+	}
+	
+	//DAO methods
+	public static ArrayList<Factory> getAllFactories() {
+		FactoryDAO dao = new FactoryDAO();
+		return dao.findAll();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Factory f = null;
+		if(obj == null || obj.getClass() == this.getClass()) {
+			return true;
+		}
+		
+		f = (Factory)obj;
+		if(f.getName().equals(this.getName())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.getName().hashCode();
+	}
+
+	@Override
+	public String toString() {
+	    return String.format(
+	        "Factory [Name: %s]", 
+	        name
+	    );
+	}
 }
