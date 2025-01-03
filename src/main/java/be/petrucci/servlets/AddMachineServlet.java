@@ -60,7 +60,6 @@ public class AddMachineServlet extends HttpServlet {
 		Machine machine = new Machine(0, type, size, MachineStatus.OnOrder,
 				zoneList.get(0).getSite(), zoneList);
 		
-		System.out.println("joe");
 		if(!machine.addMachine()) {
 			request.setAttribute("fail", "Error purchasing a new machine!");
 			getServletContext()
@@ -68,7 +67,6 @@ public class AddMachineServlet extends HttpServlet {
 			.forward(request, response);
 			return;
 		}
-		System.out.println("mama");
 		
 		session.setAttribute("zoneList", null);
 

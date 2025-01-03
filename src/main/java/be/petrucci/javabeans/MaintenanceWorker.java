@@ -34,12 +34,29 @@ public class MaintenanceWorker extends User implements Serializable{
 		this.site = site;
 	}
 	
+	//Methods
 	public void addMaintenance(Maintenance maintenance) {
 		if(!maintenances.contains(maintenance)) {
 			maintenances.add(maintenance);
 		}
 	}
 	
+	public static ArrayList<MaintenanceWorker> giveSelectedWorkers(ArrayList<MaintenanceWorker> workerList, String[] ids){
+		ArrayList<MaintenanceWorker> selectedWorker = new ArrayList<>();
+	    for (String workerId : ids) {
+	        int id = Integer.parseInt(workerId);
+	        MaintenanceWorker matchingWorker = workerList.stream()
+	                                    .filter(w -> w.getId() == id)
+	                                    .findFirst()
+	                                    .orElse(null);
+	        if (matchingWorker != null) {
+	        	selectedWorker.add(matchingWorker);
+	        }
+	    }
+	    return selectedWorker;
+	}
+	
+	//DAO methods
 	public static ArrayList<MaintenanceWorker> getAllWorkers(){
 		MaintenanceWorkerDAO dao = new MaintenanceWorkerDAO();
 		return dao.findAll();

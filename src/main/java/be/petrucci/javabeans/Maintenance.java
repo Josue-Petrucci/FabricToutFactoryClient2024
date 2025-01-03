@@ -2,7 +2,11 @@ package be.petrucci.javabeans;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 import be.petrucci.dao.MaintenanceDAO;
 
@@ -120,12 +124,52 @@ public class Maintenance implements Serializable {
 		this.workers = workers;
 	}
 	
+	//Methods
 	public void addWorker(MaintenanceWorker worker) {
 		if(!workers.contains(worker)) {
 			workers.add(worker);
 		}
 	}
+	
+	public static List<String> validate(String dateParam, String durationParam, String instructionParam) {
+        List<String> errors = new ArrayList<>();
+        
+        Date date = null;
+        if (dateParam == null || dateParam.trim().isEmpty()) {
+            errors.add("Date is required.");
+        } else {
+            try {
+                date = Date.valueOf(LocalDate.parse(dateParam, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                if (date.before(Date.valueOf(LocalDate.now()))) {
+                    errors.add("The date cannot be in the past.");
+                }
+            } catch (DateTimeParseException e) {
+                errors.add("Invalid date format. Use yyyy-MM-dd.");
+            }
+        }
 
+        if (durationParam == null || durationParam.trim().isEmpty()) {
+            errors.add("Duration is required.");
+        } else {
+            try {
+                int duration = Integer.parseInt(durationParam);
+                if (duration <= 0) {
+                    errors.add("Duration must be a positive number.");
+                }
+            } catch (NumberFormatException e) {
+                errors.add("Invalid duration. It must be a number.");
+            }
+        }
+
+        if (instructionParam == null || instructionParam.trim().isEmpty()) {
+            errors.add("Instructions are required.");
+        } else if (!instructionParam.matches("[a-zA-Z0-9\\s!@#$%^&*(),.?\":{}|<>]+")) {
+            errors.add("Instructions contain invalid characters.");
+        }
+        return errors;
+    }
+
+	// Dao methods
 	public boolean createMaintenance() {
 		MaintenanceDAO dao = new MaintenanceDAO();
 		return dao.create(this);

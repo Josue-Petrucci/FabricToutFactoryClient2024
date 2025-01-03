@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,11 +34,13 @@ public class AddMaintenanceServlet extends HttpServlet {
                 return;
         	}
         }
-		ListMachineWorker list = new ListMachineWorker();
-		request.setAttribute("model", list);
-		getServletContext().getRequestDispatcher("/WEB-INF/Views/AddMaintenance.jsp").forward(request, response);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/JSP/AddMaintenance.jsp");
+		dispatcher.forward(request, response);
+		return;
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!isUserLoggedIn(request)) {
         	if(!isUserAdmin(request) || !isUserMMana(request)) {
@@ -44,7 +48,8 @@ public class AddMaintenanceServlet extends HttpServlet {
                 return;
         	}
         }
-		List<String> errors = new ArrayList<>();
+		
+		 new ArrayList<>();
 		try {
 			HttpSession session = request.getSession();
 			User user = (User) session.getAttribute("user");
@@ -57,101 +62,41 @@ public class AddMaintenanceServlet extends HttpServlet {
 	        manager.setMatricule(user.getMatricule());
 	        manager.setPassword(user.getPassword());
 	        
-	        String machineIdParam = request.getParameter("machineId");
-	        String[] workerIds = request.getParameterValues("workerIds");
 	        String dateParam = request.getParameter("date");
 	        String durationParam = request.getParameter("duration");
 	        String instruction = request.getParameter("instruction");
 
-	        if (machineIdParam == null || machineIdParam.trim().isEmpty()) {
-	            errors.add("Machine ID is required.");
-	        }
-
-	        if (workerIds == null || workerIds.length == 0) {
-	            errors.add("At least one worker is required.");
-	        }
-
-	        Date date = null;
-	        if (dateParam == null || dateParam.trim().isEmpty()) {
-	            errors.add("Date is required.");
-	        } else {
-	            try {
-	                date = Date.valueOf(LocalDate.parse(dateParam, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-	                if (date.before(Date.valueOf(LocalDate.now()))) {
-	                    errors.add("The date cannot be in the past.");
-	                }
-	            } catch (DateTimeParseException e) {
-	                errors.add("Invalid date format. Use yyyy-MM-dd.");
-	            }
-	        }
-
-	        int duration = 0;
-	        if (durationParam == null || durationParam.trim().isEmpty()) {
-	            errors.add("Duration is required.");
-	        } else {
-	            try {
-	                duration = Integer.parseInt(durationParam);
-	                if (duration <= 0) {
-	                    errors.add("Duration must be a positive number.");
-	                }
-	            } catch (NumberFormatException e) {
-	                errors.add("Invalid duration. It must be a number.");
-	            }
-	        }
-
-	        if (instruction == null || instruction.trim().isEmpty()) {
-	            errors.add("Instructions are required.");
-	        } else if (!instruction.matches("[a-zA-Z0-9\\s!@#$%^&*(),.?\":{}|<>]+")) {
-	            errors.add("Instructions contain invalid characters.");
-	        }
+	        List<String> errors = Maintenance.validate(dateParam, durationParam, instruction);
 
 	        if (!errors.isEmpty()) {
-	            request.setAttribute("errors", errors);
-	            doGet(request, response);
-	            return;
-	        }
-
-	        int machineId = Integer.parseInt(machineIdParam);
-
-	        ListMachineWorker list = new ListMachineWorker();
-
-	        Optional<Machine> machine = list.getListMachine().stream()
-	                .filter(m -> m.getId() == machineId)
-	                .findFirst();
-
-	        ArrayList<MaintenanceWorker> workers = new ArrayList<>();
-	        for (String workerId : workerIds) {
-	            int id = Integer.parseInt(workerId);
-	            list.getListWorker().stream()
-	                    .filter(w -> w.getId() == id)
-	                    .findFirst()
-	                    .ifPresent(workers::add);
-	        }
-
-	        if (machine.isEmpty()) {
-	            errors.add("Invalid machine selected.");
-	        }
-	        if (workers.isEmpty()) {
-	            errors.add("Selected workers are invalid.");
-	        }
-
-	        if (!errors.isEmpty()) {
-	            request.setAttribute("errors", errors);
+	            request.setAttribute("fail", errors);
 	            doGet(request, response);
 	            return;
 	        }
 	        
-		    Maintenance maintenance = new Maintenance(date, duration, instruction, machine.get(), manager, workers);
+	        Machine machine = (Machine) session.getAttribute("machine");
+	        ArrayList<MaintenanceWorker> workers = ( ArrayList<MaintenanceWorker>) session.getAttribute("listWorker");
+	        
+		    Maintenance maintenance = new Maintenance(Date.valueOf(LocalDate.parse(dateParam, DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
+		    		Integer.parseInt(durationParam), instruction, machine, manager, workers);
+		    
+		    session.setAttribute("machine", null);
+        	session.setAttribute("listWorker", null);
+		    
 		    if(maintenance.createMaintenance()) {
-		    	
+		    	request.setAttribute("success", "Maintenance successful create !!");
+	        	getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
+				return;
 		    } else {
-		    	
+		    	request.setAttribute("fail", "Error with the connection of the data base !!");
+	        	getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
+				return;
 		    }
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        errors.add("An unexpected error occurred.");
-	        request.setAttribute("errors", errors);
-	        doGet(request, response);
+	        request.setAttribute("fail", "Error for addition maintenance submition!");
+	        getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
+			return;
 	    }
 	}
 	

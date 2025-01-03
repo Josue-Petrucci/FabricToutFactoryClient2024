@@ -1,6 +1,8 @@
 package be.petrucci.javabeans;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Optional;
+
 import be.petrucci.dao.MachineDAO;
 
 public class Machine implements Serializable{
@@ -130,6 +132,13 @@ public class Machine implements Serializable{
 	        return false;
 	    }
 	    return true;
+	}
+	
+	public static Machine giveSelectedMachine(ArrayList<Machine> machineList, String id){
+		Optional<Machine> selectedMachine = machineList.stream()
+                .filter(m -> m.getId() == Integer.parseInt(id))
+                .findFirst();
+	    return selectedMachine.get();
 	}
 	
 	//DAO methods
