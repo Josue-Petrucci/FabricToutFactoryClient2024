@@ -13,6 +13,7 @@
         <thead>
             <tr>
                 <th>Machines</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +24,7 @@
             %>
             <tr>
                 <td><%= machine.toString() %></td>
+                <td><a href="DeleteMachineServlet?id=<%= machine.getId() %>">Delete</a></td>
             </tr>
             <% 
                     }

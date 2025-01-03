@@ -1,5 +1,4 @@
 package be.petrucci.javabeans;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import be.petrucci.dao.MachineDAO;
@@ -125,20 +124,25 @@ public class Machine implements Serializable{
 	    return true;
 	}
 	
+	public boolean deleteMachine() {
+		MachineDAO machineDAO = new MachineDAO();
+    	if (!deleteMachine(machineDAO)) {
+	        return false;
+	    }
+	    return true;
+	}
+	
 	//DAO methods
 	public boolean createMachine(MachineDAO dao) {
 		return dao.create(this);
 	}
+	
+	public boolean deleteMachine(MachineDAO dao) {
+		return dao.delete(this);
+	}
 
 	public static ArrayList<Machine> getAllMachine(){
 		MachineDAO dao = new MachineDAO();
-		ArrayList<Machine> machineList = dao.findAll();
-		for(Machine machine : machineList) {
-			System.out.println(machine.getSite());
-			/*if(machine.getSite() == null) {
-				machine.setSite(machine.getZones().get(0).getSite());
-			}*/
-		}
 		return dao.findAll();
 	}
 	
