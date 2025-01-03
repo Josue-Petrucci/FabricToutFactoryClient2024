@@ -40,8 +40,18 @@ public class MachineDAO extends DAO<Machine>{
 
 	@Override
 	public boolean delete(Machine obj) {
-		// TODO Auto-generated method stub
-		return false;
+        try {
+    		ObjectMapper objectMapper = new ObjectMapper();
+            String json = objectMapper.writeValueAsString(obj);
+            ClientResponse res = this.getResource()
+                    .path("machine")
+                    .accept(MediaType.APPLICATION_JSON)
+                    .delete(ClientResponse.class,json);
+            return res.getStatus() == 200;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
 	}
 
 	@Override
