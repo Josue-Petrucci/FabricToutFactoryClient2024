@@ -1,67 +1,61 @@
 package be.petrucci.servlets;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.sql.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 import be.petrucci.javabeans.Machine;
 import be.petrucci.javabeans.Maintenance;
 import be.petrucci.javabeans.MaintenanceManager;
 import be.petrucci.javabeans.MaintenanceWorker;
+import be.petrucci.javabeans.User;
 import be.petrucci.javabeansviews.ListMachineWorker;
 
-/**
- * Servlet implementation class AddMaintenanceServlet
- */
 public class AddMaintenanceServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddMaintenanceServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private static final long serialVersionUID = -720626763990810887L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	public AddMaintenanceServlet() {}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if (!isUserLoggedIn(request)) {
+        	if(!isUserAdmin(request) || !isUserMMana(request)) {
+                forwardToLogin(request, response);
+                return;
+        	}
+        }
 		ListMachineWorker list = new ListMachineWorker();
 		request.setAttribute("model", list);
 		getServletContext().getRequestDispatcher("/WEB-INF/Views/AddMaintenance.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if (!isUserLoggedIn(request)) {
+        	if(!isUserAdmin(request) || !isUserMMana(request)) {
+                forwardToLogin(request, response);
+                return;
+        	}
+        }
 		List<String> errors = new ArrayList<>();
 		try {
+			HttpSession session = request.getSession();
+			User user = (User) session.getAttribute("user");
 			MaintenanceManager manager = new MaintenanceManager();
-		    manager.setId(1);
-	        manager.setLastname("Doe");
-	        manager.setFirstname("John");
-	        manager.setAge(45);
-	        manager.setAddress("123 Manager St");
-	        manager.setMatricule("MMana-1");
-	        manager.setPassword("XQLIKJAJGL");
+		    manager.setId(user.getId());
+	        manager.setLastname(user.getLastname());
+	        manager.setFirstname(user.getFirstname());
+	        manager.setAge(user.getAge());
+	        manager.setAddress(user.getAddress());
+	        manager.setMatricule(user.getMatricule());
+	        manager.setPassword(user.getPassword());
 	        
 	        String machineIdParam = request.getParameter("machineId");
 	        String[] workerIds = request.getParameterValues("workerIds");
@@ -160,5 +154,36 @@ public class AddMaintenanceServlet extends HttpServlet {
 	        doGet(request, response);
 	    }
 	}
+	
+	private boolean isUserLoggedIn(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return false;
+        }
+        User user = (User) session.getAttribute("user");
+        return user != null;
+    }
+	
+	private boolean isUserAdmin(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return false;
+        }
+        User user = (User) session.getAttribute("user");
+        return user.isRole("Admin");
+    }
+	
+	private boolean isUserMMana(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return false;
+        }
+        User user = (User) session.getAttribute("user");
+        return user.isRole("MMana");
+    }
+
+    private void forwardToLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        getServletContext().getRequestDispatcher("/WEB-INF/JSP/Login.jsp").forward(request, response);
+    }
 
 }
