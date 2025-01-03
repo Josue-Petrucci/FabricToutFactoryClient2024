@@ -25,4 +25,9 @@ public class MaintenanceManager extends User implements Serializable{
 	}
 
 	public MaintenanceManager() {}
+	
+	public MaintenanceManager(int id, String lastname, String firstname, int age, String address, String matricule, String password, Site site) {
+		super(id, lastname, firstname, age, address, matricule, password);
+		this.site = site;
+	}
 }

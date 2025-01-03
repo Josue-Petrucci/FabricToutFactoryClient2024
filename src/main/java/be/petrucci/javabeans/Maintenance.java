@@ -124,6 +124,18 @@ public class Maintenance implements Serializable {
 		this.workers = workers;
 	}
 	
+	public Maintenance(Date date, int duration, String instruction, String report, MaintenanceStatus status, Machine machine, MaintenanceManager manager, ArrayList<MaintenanceWorker> workers, int id) {
+		this.date = date;
+		this.duration = duration;
+		this.instructions = instruction;
+		this.report = report;
+		this.status = status;
+		this.machine = machine;
+		this.manager = manager;
+		this.workers = workers;
+		this.id = id;
+	}
+	
 	//Methods
 	public void addWorker(MaintenanceWorker worker) {
 		if(!workers.contains(worker)) {
@@ -173,6 +185,11 @@ public class Maintenance implements Serializable {
 	public boolean createMaintenance() {
 		MaintenanceDAO dao = new MaintenanceDAO();
 		return dao.create(this);
+	}
+	
+	public static ArrayList<Maintenance> getAllMaintenance(){
+		MaintenanceDAO dao = new MaintenanceDAO();
+		return dao.findAll();
 	}
 	
 	@Override

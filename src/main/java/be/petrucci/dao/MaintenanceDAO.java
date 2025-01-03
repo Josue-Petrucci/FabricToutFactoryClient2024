@@ -12,6 +12,8 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
 import be.petrucci.javabeans.Maintenance;
 
 public class MaintenanceDAO extends DAO<Maintenance>{
@@ -64,8 +66,18 @@ public class MaintenanceDAO extends DAO<Maintenance>{
 
 	@Override
 	public ArrayList<Maintenance> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Maintenance> maintenances = new ArrayList<Maintenance>();
+		try {
+			String response = getResource()
+					.path("maintenance")
+					.accept(MediaType.APPLICATION_JSON)
+					.get(String.class);
+			
+			maintenances = getMapper().readValue(response, new TypeReference<ArrayList<Maintenance>>() {});
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return maintenances;
 	}
 
 }

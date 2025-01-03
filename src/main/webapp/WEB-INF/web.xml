@@ -39,6 +39,10 @@
       <filter-name>LoginFilter</filter-name>
       <servlet-name>AddMachineWorkersToMaintenainceServlet</servlet-name>
   </filter-mapping>
+  <filter-mapping>
+      <filter-name>LoginFilter</filter-name>
+      <servlet-name>SeeAllMaintenanceServlet</servlet-name>
+  </filter-mapping>
   
   <!-- SERVLETS -->
   <servlet>
@@ -76,6 +80,10 @@
   <servlet>
   	<servlet-name>AddMachineWorkersToMaintenanceServlet</servlet-name>
   	<servlet-class>be.petrucci.servlets.AddMachineWorkersToMaintenanceServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>SeeAllMaintenanceServlet</servlet-name>
+  	<servlet-class>be.petrucci.servlets.SeeAllMaintenanceServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -132,6 +140,12 @@
   	<url-pattern>/AddMachineWorkersToMaintenanceServlet</url-pattern>
   	<url-pattern>/addmachineWorkerstomaintenance</url-pattern>
   	<url-pattern>/AddMachineWorkersToMaintenance</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SeeAllMaintenanceServlet</servlet-name>
+  	<url-pattern>/SeeAllMaintenanceServlet</url-pattern>
+  	<url-pattern>/SeeAllMaintenance</url-pattern>
+  	<url-pattern>/seeallmaintenance</url-pattern>
   </servlet-mapping>
 </web-app>
 
