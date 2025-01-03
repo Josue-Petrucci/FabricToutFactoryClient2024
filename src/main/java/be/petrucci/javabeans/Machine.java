@@ -132,6 +132,13 @@ public class Machine implements Serializable{
 
 	public static ArrayList<Machine> getAllMachine(){
 		MachineDAO dao = new MachineDAO();
+		ArrayList<Machine> machineList = dao.findAll();
+		for(Machine machine : machineList) {
+			System.out.println(machine.getSite());
+			/*if(machine.getSite() == null) {
+				machine.setSite(machine.getZones().get(0).getSite());
+			}*/
+		}
 		return dao.findAll();
 	}
 	
