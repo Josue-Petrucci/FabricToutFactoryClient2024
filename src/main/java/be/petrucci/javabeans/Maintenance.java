@@ -8,9 +8,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import be.petrucci.dao.MaintenanceDAO;
-
 
 public class Maintenance implements Serializable {
 	private static final long serialVersionUID = 6578454947386542915L;
@@ -188,11 +186,20 @@ public class Maintenance implements Serializable {
                 .findFirst();
 	    return selectedMaintenance.get();
 	}
+	
+	public boolean deleteMaintenance() {
+		MaintenanceDAO maintenanceDAO = new MaintenanceDAO();
+		return deleteMaintenance(maintenanceDAO);
+	}
 
-	// Dao methods
+	//DAO methods
 	public boolean createMaintenance() {
 		MaintenanceDAO dao = new MaintenanceDAO();
 		return dao.create(this);
+	}
+	
+	public boolean deleteMaintenance(MaintenanceDAO dao) {
+		return dao.delete(this);
 	}
 	
 	public static ArrayList<Maintenance> getAllMaintenance(){

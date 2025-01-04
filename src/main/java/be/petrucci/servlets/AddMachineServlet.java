@@ -17,9 +17,9 @@ import be.petrucci.javabeans.User;
 import be.petrucci.javabeans.Zone;
 
 public class AddMachineServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    public AddMachineServlet() {}
+	private static final long serialVersionUID = -2986964348331464499L;
+
+	public AddMachineServlet() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!isUserLoggedIn(request)) {

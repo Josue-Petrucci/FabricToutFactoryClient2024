@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import be.petrucci.javabeans.User;
 
 public class LoginServlet extends HttpServlet {
-
 	private static final long serialVersionUID = 1123628689043456581L;
 
 	public LoginServlet() {}

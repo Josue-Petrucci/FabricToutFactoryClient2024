@@ -14,7 +14,6 @@ import be.petrucci.javabeans.Machine;
 import be.petrucci.javabeans.User;
 
 public class SeeAllMachinesServlet extends HttpServlet {
-
 	private static final long serialVersionUID = -8416361672282156610L;
 
 	public SeeAllMachinesServlet() {}

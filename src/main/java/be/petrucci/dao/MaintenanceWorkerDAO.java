@@ -14,31 +14,22 @@ public class MaintenanceWorkerDAO extends DAO<MaintenanceWorker>{
 		super();
 	}
 
-	@Override
 	public boolean create(MaintenanceWorker obj) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public boolean delete(MaintenanceWorker obj) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public boolean update(MaintenanceWorker obj) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public MaintenanceWorker find(MaintenanceWorker obj) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public ArrayList<MaintenanceWorker> findAll() {
 		ArrayList<MaintenanceWorker> workers = new ArrayList<MaintenanceWorker>();
 		try {
