@@ -127,6 +127,11 @@ public class Machine implements Serializable{
 		MachineDAO machineDAO = new MachineDAO();
 		return deleteMachine(machineDAO);
 	}
+
+	public boolean updateMachine() {
+		MachineDAO machineDAO = new MachineDAO();
+		return updateMachine(machineDAO);
+	}
 	
 	public static Machine giveSelectedMachine(ArrayList<Machine> machineList, String id){
 		Optional<Machine> selectedMachine = machineList.stream()
@@ -142,6 +147,10 @@ public class Machine implements Serializable{
 	
 	public boolean deleteMachine(MachineDAO dao) {
 		return dao.delete(this);
+	}
+
+	public boolean updateMachine(MachineDAO dao) {
+		return dao.update(this);
 	}
 
 	public static ArrayList<Machine> getAllMachine(){

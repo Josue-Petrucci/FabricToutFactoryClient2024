@@ -117,6 +117,10 @@
   	<servlet-name>DeleteMaintenanceServlet</servlet-name>
   	<servlet-class>be.petrucci.servlets.DeleteMaintenanceServlet</servlet-class>
   </servlet>
+  <servlet>
+	<servlet-name>UpdateMachineServlet</servlet-name>
+	<servlet-class>be.petrucci.servlets.UpdateMachineServlet</servlet-class>
+  </servlet>
   
   <servlet-mapping>
   	<servlet-name>HomServlet</servlet-name>
@@ -202,6 +206,12 @@
   	<url-pattern>/DeleteMaintenanceServlet</url-pattern>
   	<url-pattern>/deletemaintenance</url-pattern>
   	<url-pattern>/DeleteMaintenance</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+	<servlet-name>UpdateMachineServlet</servlet-name>
+	<url-pattern>/UpdateMachineServlet</url-pattern>
+	<url-pattern>/UpdateMachine</url-pattern>
+	<url-pattern>/updatemachine</url-pattern>
   </servlet-mapping>
 </web-app>
 
