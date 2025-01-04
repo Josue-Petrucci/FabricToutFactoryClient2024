@@ -101,9 +101,10 @@ public class User implements Serializable {
 	}
 	
 	public boolean isRole(String role) {
-	    if (matricule == null || matricule.length() < 5) {
+	    if (matricule == null || matricule.length() < 5 || role == null) {
 	        return false;
 	    }
+	    
 	    return matricule.substring(0, 5).equalsIgnoreCase(role);
 	}
 

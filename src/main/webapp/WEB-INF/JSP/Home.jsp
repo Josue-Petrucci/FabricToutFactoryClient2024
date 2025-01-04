@@ -41,20 +41,12 @@
 			        <br>
 				<%
 				}
-	        	if(user.isRole("Admin") || user.isRole("MMana")){
+	        	if(user.isRole("MMana")){
         		%>
         			<button onclick="window.location='/FabricToutFactoryClient2024/AddMachineWorkersToMaintenanceServlet'">Create a maintenance</button>
         			<br>
-        			<button onclick="window.location='/FabricToutFactoryClient2024/SeeAllMaintenanceServlet'">See all maintenance</button>
-        			<br>
-        			<% 
-        			if(user.isRole("MMana")){
-        			%>
         			<button onclick="window.location='/FabricToutFactoryClient2024/SeeAllOwnManagedMaintenanceServlet'">To see all own managed maintenances</button>
         			<br>
-        			<%
-        			}
-        			%>
        			<%
 				}
 				if(user.isRole("Admin") || user.isRole("MWork")){

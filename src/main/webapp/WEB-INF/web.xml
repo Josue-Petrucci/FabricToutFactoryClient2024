@@ -15,6 +15,23 @@
 	<filter-name>LoginFilter</filter-name>
 	<filter-class>be.petrucci.filters.LoginFilter</filter-class>
   </filter>
+  <filter>
+	<filter-name>AdminFilter</filter-name>
+	<filter-class>be.petrucci.filters.AdminFilter</filter-class>
+  </filter>
+  <filter>
+	<filter-name>PuEmpFilter</filter-name>
+	<filter-class>be.petrucci.filters.PuEmpFilter</filter-class>
+  </filter>
+  <filter>
+	<filter-name>MManaFilter</filter-name>
+	<filter-class>be.petrucci.filters.MManaFilter</filter-class>
+  </filter>
+  <filter>
+	<filter-name>MWorkFilter</filter-name>
+	<filter-class>be.petrucci.filters.MWorkFilter</filter-class>
+  </filter>
+  
   <filter-mapping>
       <filter-name>LoginFilter</filter-name>
       <servlet-name>AddZoneToMachineServlet</servlet-name>
@@ -25,7 +42,7 @@
   </filter-mapping>
   <filter-mapping>
       <filter-name>LoginFilter</filter-name>
-      <servlet-name>addMaintenanceServlet</servlet-name>
+      <servlet-name>addMaintenance</servlet-name>
   </filter-mapping>
   <filter-mapping>
       <filter-name>LoginFilter</filter-name>
@@ -37,7 +54,7 @@
   </filter-mapping>
   <filter-mapping>
       <filter-name>LoginFilter</filter-name>
-      <servlet-name>AddMachineWorkersToMaintenainceServlet</servlet-name>
+      <servlet-name>AddMachineWorkersToMaintenanceServlet</servlet-name>
   </filter-mapping>
   <filter-mapping>
       <filter-name>LoginFilter</filter-name>
@@ -74,6 +91,67 @@
   <filter-mapping>
 	<filter-name>LoginFilter</filter-name>
 	<servlet-name>CompleteMaintenanceServlet</servlet-name>
+  </filter-mapping>
+  
+  <filter-mapping>
+      <filter-name>PuEmpFilter</filter-name>
+      <servlet-name>AddZoneToMachineServlet</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+      <filter-name>PuEmpFilter</filter-name>
+      <servlet-name>AddMachineServlet</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+      <filter-name>MManaFilter</filter-name>
+      <servlet-name>addMaintenanceServlet</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+      <filter-name>PuEmpFilter</filter-name>
+      <servlet-name>SeeAllMachinesServlet</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+      <filter-name>PuEmpFilter</filter-name>
+      <servlet-name>DeleteMachineServlet</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+      <filter-name>PuEmpFilter</filter-name>
+      <servlet-name>SeeAllMaintenanceServlet</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+      <filter-name>AdminFilter</filter-name>
+      <servlet-name>AddSiteToRegisterServlet</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+      <filter-name>AdminFilter</filter-name>
+      <servlet-name>RegisterServlet</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+      <filter-name>MManaFilter</filter-name>
+      <servlet-name>DeleteMaintenanceServlet</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+      <filter-name>MManaFilter</filter-name>
+      <servlet-name>SeeAllOwnManagedMaintenanceServlet</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+	<filter-name>PuEmpFilter</filter-name>
+	<servlet-name>UpdateMachineServlet</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+	<filter-name>MWorkFilter</filter-name>
+	<servlet-name>SeeAllWorkerWorkInProgressServlet</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+	<filter-name>MWorkFilter</filter-name>
+	<servlet-name>CompleteMaintenanceServlet</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+      <filter-name>MManaFilter</filter-name>
+      <servlet-name>AddMachineWorkersToMaintenanceServlet</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+      <filter-name>MManaFilter</filter-name>
+      <servlet-name>addMaintenance</servlet-name>
   </filter-mapping>
   
   <!-- SERVLETS -->
