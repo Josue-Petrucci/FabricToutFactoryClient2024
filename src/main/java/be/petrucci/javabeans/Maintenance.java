@@ -204,15 +204,11 @@ public class Maintenance implements Serializable {
 	public boolean equals(Object obj) {
 		Maintenance m = null;
 		if(obj == null || obj.getClass() != this.getClass()) {
-			return true;
+			return false;
 		}
 		
 		m = (Maintenance)obj;
-		if(m.getId() == this.getId()) {
-			return true;
-		} else {
-			return false;
-		}
+		return m.getId() == this.getId();
 	}
 	
 	@Override

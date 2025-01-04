@@ -96,12 +96,12 @@ public class Site implements Serializable {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null || getClass() != obj.getClass()) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		}
 		Site other = (Site) obj;
 		return Objects.equals(city, other.city) && Objects.equals(factory, other.factory) && id == other.id
 				&& Objects.equals(listMaintenanceManagers, other.listMaintenanceManagers)
