@@ -218,23 +218,6 @@ public class Maintenance implements Serializable {
 		return dao.update(this);
 	}
 
-	public static ArrayList<Maintenance> getInProgressMaintenanceByWorker(ArrayList<Maintenance> maintenanceList, User user) {
-		return new ArrayList<Maintenance>(maintenanceList
-			.stream()
-			.filter(m -> {
-				if (m.getStatus() == MaintenanceStatus.Validated) {
-					return false;
-				}
-				for (var w : m.getWorkers()) {
-					if (w.getId() == user.getId()) {
-						return true;
-					}
-				}
-				return false;
-			})
-			.collect(Collectors.toList()));
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		Maintenance m = null;

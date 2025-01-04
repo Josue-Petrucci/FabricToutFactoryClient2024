@@ -2,6 +2,7 @@ package be.petrucci.javabeans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import be.petrucci.dao.MaintenanceWorkerDAO;
 
@@ -55,7 +56,24 @@ public class MaintenanceWorker extends User implements Serializable{
 	    }
 	    return selectedWorker;
 	}
-	
+
+	public void getInProgressMaintenances(ArrayList<Maintenance> maintenanceList) {
+		setMaintenances(new ArrayList<Maintenance>(maintenanceList
+			.stream()
+			.filter(m -> {
+				if (m.getStatus() == MaintenanceStatus.Validated) {
+					return false;
+				}
+				for (var w : m.getWorkers()) {
+					if (w.getId() == this.getId()) {
+						return true;
+					}
+				}
+				return false;
+			})
+			.collect(Collectors.toList())));
+	}
+
 	//DAO methods
 	public static ArrayList<MaintenanceWorker> getAllWorkers(){
 		MaintenanceWorkerDAO dao = new MaintenanceWorkerDAO();

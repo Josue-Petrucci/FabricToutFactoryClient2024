@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import be.petrucci.javabeans.Maintenance;
+import be.petrucci.javabeans.MaintenanceWorker;
 import be.petrucci.javabeans.User;
 
 public class SeeAllWorkerWorkInProgressServlet extends HttpServlet {
@@ -24,12 +25,11 @@ public class SeeAllWorkerWorkInProgressServlet extends HttpServlet {
 		}
 		var session = request.getSession();
 		var user = (User)session.getAttribute("user");
-		var workerMaintenances = Maintenance.getInProgressMaintenanceByWorker(
-			Maintenance.getAllMaintenance(),
-			user
-		);
-		session.setAttribute("maintenanceList", workerMaintenances);
-		request.setAttribute("maintenanceList", workerMaintenances);
+		var worker = new MaintenanceWorker();
+		worker.setId(user.getId());
+		worker.getInProgressMaintenances(Maintenance.getAllMaintenance());
+		session.setAttribute("maintenanceList", worker.getMaintenance());
+		request.setAttribute("maintenanceList", worker.getMaintenance());
 		getServletContext()
 			.getRequestDispatcher("/WEB-INF/JSP/SeeAllWorkerWorkInProgress.jsp")
 			.forward(request, response);
