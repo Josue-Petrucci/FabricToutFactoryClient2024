@@ -25,6 +25,7 @@
             <tr>
                 <td><%= machine.toString() %></td>
                 <td><a href="DeleteMachineServlet?id=<%= machine.getId() %>">Delete</a></td>
+                <td><a href="UpdateMachineServlet?id=<%= machine.getId() %>">Update</a></td>
             </tr>
             <% 
                     }
