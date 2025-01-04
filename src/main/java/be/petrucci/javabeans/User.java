@@ -92,7 +92,7 @@ public class User implements Serializable {
 	}
 	
 	private boolean paramsAreValid() {
-		if(	this.getMatricule() == null || this.getMatricule().equals("") 
+		if (this.getMatricule() == null || this.getMatricule().equals("") 
 				|| this.getMatricule().length() < 7 || this.getPassword() == null 
 				|| this.getPassword().equals("") || this.getPassword().length() < 5) {
 			return true;
@@ -120,12 +120,12 @@ public class User implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null || getClass() != obj.getClass()) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		}
 		User other = (User) obj;
 		return Objects.equals(address, other.address) && age == other.age && Objects.equals(firstname, other.firstname)
 				&& id == other.id && Objects.equals(lastname, other.lastname)

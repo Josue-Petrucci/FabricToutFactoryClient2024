@@ -120,18 +120,12 @@ public class Machine implements Serializable{
 	
 	public boolean addMachine() {
 		MachineDAO machineDAO = new MachineDAO();
-    	if (this.size <= 0 || !createMachine(machineDAO)) {
-	        return false;
-	    }
-	    return true;
+		return this.size > 0 && createMachine(machineDAO);
 	}
 	
 	public boolean deleteMachine() {
 		MachineDAO machineDAO = new MachineDAO();
-    	if (!deleteMachine(machineDAO)) {
-	        return false;
-	    }
-	    return true;
+		return deleteMachine(machineDAO);
 	}
 	
 	public static Machine giveSelectedMachine(ArrayList<Machine> machineList, String id){
@@ -159,15 +153,11 @@ public class Machine implements Serializable{
 	public boolean equals(Object obj) {
 		Machine m = null;
 		if(obj == null || obj.getClass() != this.getClass()) {
-			return true;
+			return false;
 		}
 		
 		m = (Machine)obj;
-		if(m.getId() == this.getId() & m.getSite().getName().equals(this.getSite().getName())) {
-			return true;
-		} else {
-			return false;
-		}
+		return m.getId() == this.getId() && m.getSite().getName().equals(this.getSite().getName());
 	}
 	
 	@Override
