@@ -13,6 +13,8 @@ import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.jersey.api.client.ClientResponse;
 
 import be.petrucci.javabeans.Maintenance;
 
@@ -22,7 +24,6 @@ public class MaintenanceDAO extends DAO<Maintenance>{
 		super();
 	}
 
-	@Override
 	public boolean create(Maintenance obj) {
 		try {
 	        String json = getMapper().writeValueAsString(obj);
@@ -46,25 +47,29 @@ public class MaintenanceDAO extends DAO<Maintenance>{
 	    }
 	}
 
-	@Override
 	public boolean delete(Maintenance obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+    		ObjectMapper objectMapper = new ObjectMapper();
+            String json = objectMapper.writeValueAsString(obj);
+            ClientResponse res = this.getResource()
+                    .path("maintenance")
+                    .accept(MediaType.APPLICATION_JSON)
+                    .delete(ClientResponse.class,json);
+            return res.getStatus() == 200;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
 	}
 
-	@Override
 	public boolean update(Maintenance obj) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public Maintenance find(Maintenance obj) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public ArrayList<Maintenance> findAll() {
 		ArrayList<Maintenance> maintenances = new ArrayList<Maintenance>();
 		try {

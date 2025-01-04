@@ -14,25 +14,18 @@ public class UserDAO extends DAO<User>{
 		super();
 	}
 
-	@Override
 	public boolean create(User obj) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public boolean delete(User obj) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public boolean update(User obj) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public User find(User obj) {
 		JSONObject json = new JSONObject();
 	    json.put("matricule", obj.getMatricule());
@@ -58,16 +51,13 @@ public class UserDAO extends DAO<User>{
 				return user;
 			}
 		} catch (Exception ex) {
-			System.out.println(ex.getMessage());
+			ex.printStackTrace();
 			return null;
 		}
 		return null;
 	}
-
-	@Override
+	
 	public ArrayList<User> findAll() {
-		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

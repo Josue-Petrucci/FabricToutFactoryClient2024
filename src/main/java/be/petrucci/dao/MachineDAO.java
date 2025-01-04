@@ -16,7 +16,6 @@ public class MachineDAO extends DAO<Machine>{
 		super();
 	}
 
-	@Override
 	public boolean create(Machine obj) {
 		try {
 			ObjectMapper objectMapper = new ObjectMapper();
@@ -32,13 +31,12 @@ public class MachineDAO extends DAO<Machine>{
 	            return true;
 	        }
 	    } catch (Exception ex) {
-	        System.out.println(ex.getMessage());
+	        ex.printStackTrace();
 	        return false;
 	    }
 	    return false;
 	}
 
-	@Override
 	public boolean delete(Machine obj) {
         try {
     		ObjectMapper objectMapper = new ObjectMapper();
@@ -49,20 +47,16 @@ public class MachineDAO extends DAO<Machine>{
                     .delete(ClientResponse.class,json);
             return res.getStatus() == 200;
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            ex.printStackTrace();
             return false;
         }
 	}
 
-	@Override
 	public boolean update(Machine obj) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public Machine find(Machine obj) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

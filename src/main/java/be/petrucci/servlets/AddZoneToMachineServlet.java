@@ -14,9 +14,9 @@ import be.petrucci.javabeans.User;
 import be.petrucci.javabeans.Zone;
 
 public class AddZoneToMachineServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5361523981446935139L;
 
-    public AddZoneToMachineServlet() {}
+	public AddZoneToMachineServlet() {}
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -80,7 +80,6 @@ public class Zone implements Serializable {
 	
 	public static boolean compareZoneListIfSameSite(ArrayList<Zone> zones) {
 	    if (zones == null || zones.isEmpty()) {
-	        System.out.println("La liste de zones est vide ou nulle.");
 	        return false;
 	    }
 
@@ -113,10 +112,6 @@ public class Zone implements Serializable {
 	    
 	    if(!Zone.compareZoneListIfSameSite(selectedZones))
 	    	return null;
-	    
-	    for (Zone zone : selectedZones) {
-	        System.out.println("Selected Zone: " + zone);
-	    }
 	    
 	    return selectedZones;
 	}

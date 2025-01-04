@@ -3,12 +3,9 @@ package be.petrucci.servlets;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
-import java.util.Optional;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +17,6 @@ import be.petrucci.javabeans.Maintenance;
 import be.petrucci.javabeans.MaintenanceManager;
 import be.petrucci.javabeans.MaintenanceWorker;
 import be.petrucci.javabeans.User;
-import be.petrucci.javabeansviews.ListMachineWorker;
 
 public class AddMaintenanceServlet extends HttpServlet {
 	private static final long serialVersionUID = -720626763990810887L;

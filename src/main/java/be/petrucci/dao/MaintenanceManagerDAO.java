@@ -28,29 +28,25 @@ public class MaintenanceManagerDAO extends DAO<MaintenanceManager> {
 	            return true;
 	        }
 	    } catch (Exception ex) {
-	        System.out.println(ex.getMessage());
+	        ex.printStackTrace();
 	        return false;
 	    }
 	    return false;
 	}
 
 	public boolean delete(MaintenanceManager obj) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public boolean update(MaintenanceManager obj) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public MaintenanceManager find(MaintenanceManager obj) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public ArrayList<MaintenanceManager> findAll() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

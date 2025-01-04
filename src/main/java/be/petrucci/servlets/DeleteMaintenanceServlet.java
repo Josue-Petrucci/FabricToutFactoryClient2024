@@ -1,22 +1,18 @@
 package be.petrucci.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import be.petrucci.javabeans.Maintenance;
 import be.petrucci.javabeans.User;
 
-public class SeeAllMaintenanceServlet extends HttpServlet {
-	private static final long serialVersionUID = 3637807380691348574L;
+public class DeleteMaintenanceServlet extends HttpServlet {
+	private static final long serialVersionUID = 1222210774647623591L;
 
-	public SeeAllMaintenanceServlet() {}
+	public DeleteMaintenanceServlet() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!isUserLoggedIn(request)) {
@@ -25,23 +21,30 @@ public class SeeAllMaintenanceServlet extends HttpServlet {
                 return;
         	}
         }
-		
-		ArrayList<Maintenance> maintenances = Maintenance.getAllMaintenance();
-		
-		HttpSession session = request.getSession();
-        session.setAttribute("maintenanceList", maintenances);
-        
-		request.setAttribute("Maintenances", maintenances);
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/JSP/SeeAllMaintenance.jsp");
-		dispatcher.forward(request, response);
-		return;
+		int id = Integer.parseInt(request.getParameter("id"));
+		if(id == 0) {
+			request.setAttribute("fail", "Error no valid maintenance chosen for deletion!");
+			getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
+			return;
+		}
+		Maintenance maintenance = new Maintenance();
+		maintenance.setId(id);
+		if(maintenance.deleteMaintenance()) {
+			request.setAttribute("success", "Maintenance successfuly deleted!");
+			getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
+			return;
+		}
+		else {
+			request.setAttribute("fail", "Error about machine deletion!");
+			getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
+			return;
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-	
+
 	private boolean isUserLoggedIn(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {

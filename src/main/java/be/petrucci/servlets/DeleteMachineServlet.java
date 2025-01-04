@@ -11,7 +11,6 @@ import be.petrucci.javabeans.Machine;
 import be.petrucci.javabeans.User;
 
 public class DeleteMachineServlet extends HttpServlet {
-
 	private static final long serialVersionUID = 7622721359550298919L;
 
     public DeleteMachineServlet() {}
@@ -41,7 +40,6 @@ public class DeleteMachineServlet extends HttpServlet {
 			getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
 			return;
 		}
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
