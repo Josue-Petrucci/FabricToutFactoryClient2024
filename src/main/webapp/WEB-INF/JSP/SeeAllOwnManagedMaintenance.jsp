@@ -54,6 +54,10 @@
                             <td><%= maintenance.getReport() != null ? maintenance.getReport() : "N/A" %></td>
                             <td><%= maintenance.getStatus() %></td>
                             <td><a href="DeleteMaintenanceServlet?id=<%= maintenance.getId() %>">Delete</a></td>
+                            <% if (maintenance.getStatus() == MaintenanceStatus.Completed) { %>
+                                 <td><a href="UpdateMaintenanceServlet?id=<%= maintenance.getId() %>&action=accept">Accept</a></td>
+                                 <td><a href="UpdateMaintenanceServlet?id=<%= maintenance.getId() %>&action=reject">Reject</a></td>
+                            <% } %>
                         </tr>
             <%
                     }
