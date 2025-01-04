@@ -36,7 +36,9 @@
 				}
 	        	if(user.isRole("Admin") || user.isRole("MMana")){
         		%>
-        			<button onclick="window.location='/FabricToutFactoryClient2024/AddMachineWorkersToMaintenanceServlet'">Add a maintenance</button>
+        			<button onclick="window.location='/FabricToutFactoryClient2024/AddMachineWorkersToMaintenanceServlet'">Create a maintenance</button>
+        			<br>
+        			<button onclick="window.location='/FabricToutFactoryClient2024/SeeAllMaintenanceServlet'">See all maintenance</button>
        			<%
        			}
 			%>

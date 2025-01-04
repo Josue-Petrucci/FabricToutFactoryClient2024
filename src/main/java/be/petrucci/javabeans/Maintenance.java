@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import be.petrucci.dao.MaintenanceDAO;
 
@@ -180,6 +181,13 @@ public class Maintenance implements Serializable {
         }
         return errors;
     }
+	
+	public static Maintenance giveSelectedMaintenance(ArrayList<Maintenance> maintenanceList, int id){
+		Optional<Maintenance> selectedMaintenance = maintenanceList.stream()
+                .filter(m -> m.getId() == id)
+                .findFirst();
+	    return selectedMaintenance.get();
+	}
 
 	// Dao methods
 	public boolean createMaintenance() {

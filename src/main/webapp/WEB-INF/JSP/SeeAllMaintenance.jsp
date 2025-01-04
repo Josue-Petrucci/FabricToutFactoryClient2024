@@ -36,7 +36,7 @@
                 <td><%= m.getReport() %></td>
                 <td><%= m.getWorkers().size() %></td>
                 <td><%= m.getStatus() %></td>
-                <td><a href="?id=<%= m.getId() %>">Detail</a></td>
+                <td><a href="DetailMaintenanceServlet?id=<%= m.getId() %>">Detail</a></td>
             </tr>
             <% 
                     }
@@ -49,6 +49,6 @@
         </tbody>
     </table>
     <br>
-    <a href="Home"><button>Back</button></a>
+    <a href="home"><button>Back</button></a>
 </body>
 </html>
