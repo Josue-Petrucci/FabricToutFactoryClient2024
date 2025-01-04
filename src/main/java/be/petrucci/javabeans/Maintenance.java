@@ -209,6 +209,15 @@ public class Maintenance implements Serializable {
 		return dao.findAll();
 	}
 
+	public boolean updateMaintenance() {
+		var dao = new MaintenanceDAO();
+		return updateMaintenance(dao);
+	}
+
+	public boolean updateMaintenance(MaintenanceDAO dao) {
+		return dao.update(this);
+	}
+
 	public static ArrayList<Maintenance> getInProgressMaintenanceByWorker(ArrayList<Maintenance> maintenanceList, User user) {
 		return new ArrayList<Maintenance>(maintenanceList
 			.stream()
