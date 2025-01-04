@@ -37,6 +37,7 @@
                 <th>Instructions</th>
                 <th>Report</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -52,6 +53,7 @@
                             <td><%= maintenance.getInstructions() %></td>
                             <td><%= maintenance.getReport() != null ? maintenance.getReport() : "N/A" %></td>
                             <td><%= maintenance.getStatus() %></td>
+                            <td><a href="DeleteMaintenanceServlet?id=<%= maintenance.getId() %>">Delete</a></td>
                         </tr>
             <%
                     }
