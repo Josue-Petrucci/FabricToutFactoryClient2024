@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import be.petrucci.javabeans.Machine;
+import be.petrucci.javabeans.MaintenanceManager;
 import be.petrucci.javabeans.MaintenanceWorker;
 import be.petrucci.javabeans.User;
 
@@ -33,6 +34,10 @@ public class AddMachineWorkersToMaintenanceServlet extends HttpServlet {
     	
     	request.setAttribute("Machines", machines);
     	request.setAttribute("Workers", workers);
+    	
+		User managerUser = (User) session.getAttribute("user");
+		MaintenanceManager manager = MaintenanceManager.getManagerDetail(new MaintenanceManager(managerUser.getId()));
+		request.setAttribute("manager", manager);
     	
     	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/JSP/AddMachineWorkersToMaintenance.jsp");
 		dispatcher.forward(request, response);
