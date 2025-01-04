@@ -47,6 +47,14 @@
       <filter-name>LoginFilter</filter-name>
       <servlet-name>DetailMaintenanceServlet</servlet-name>
   </filter-mapping>
+  <filter-mapping>
+      <filter-name>LoginFilter</filter-name>
+      <servlet-name>AddSiteToRegisterServlet</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+      <filter-name>LoginFilter</filter-name>
+      <servlet-name>RegisterServlet</servlet-name>
+  </filter-mapping>
   
   <!-- SERVLETS -->
   <servlet>
@@ -92,6 +100,14 @@
   <servlet>
   	<servlet-name>DetailMaintenanceServlet</servlet-name>
   	<servlet-class>be.petrucci.servlets.DetailMaintenanceServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>AddSiteToRegisterServlet</servlet-name>
+  	<servlet-class>be.petrucci.servlets.AddSiteToRegisterServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>RegisterServlet</servlet-name>
+  	<servlet-class>be.petrucci.servlets.RegisterServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -160,6 +176,18 @@
   	<url-pattern>/DetailMaintenanceServlet</url-pattern>
   	<url-pattern>/DetailMaintenance</url-pattern>
   	<url-pattern>/detailmaintenance</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AddSiteToRegisterServlet</servlet-name>
+  	<url-pattern>/AddSiteToRegisterServlet</url-pattern>
+  	<url-pattern>/addsitetoregister</url-pattern>
+  	<url-pattern>/AddSiteToRegister</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>RegisterServlet</servlet-name>
+  	<url-pattern>/RegisterServlet</url-pattern>
+  	<url-pattern>/register</url-pattern>
+  	<url-pattern>/Register</url-pattern>
   </servlet-mapping>
 </web-app>
 

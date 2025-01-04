@@ -27,11 +27,18 @@
         <button onclick="window.location='/FabricToutFactoryClient2024/LoginServlet'">Login</button>
 		<%
 		    } else {
+		    	if(user.isRole("Admin")){
+				%>
+				    <button onclick="window.location='/FabricToutFactoryClient2024/AddSiteToRegisterServlet'">Register a new user</button>
+				    <br>
+				<%
+				}
         		if(user.isRole("Admin") || user.isRole("PuEmp")){
 				%>
 			        <button onclick="window.location='/FabricToutFactoryClient2024/AddZoneToMachineServlet'">Purchase new machine</button>
 			        <br>
 			        <button onclick="window.location='/FabricToutFactoryClient2024/SeeAllMachinesServlet'">See all Machines</button>
+			        <br>
 				<%
 				}
 	        	if(user.isRole("Admin") || user.isRole("MMana")){
@@ -39,6 +46,7 @@
         			<button onclick="window.location='/FabricToutFactoryClient2024/AddMachineWorkersToMaintenanceServlet'">Create a maintenance</button>
         			<br>
         			<button onclick="window.location='/FabricToutFactoryClient2024/SeeAllMaintenanceServlet'">See all maintenance</button>
+        			<br>
        			<%
        			}
 			%>
