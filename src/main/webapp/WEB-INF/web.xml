@@ -59,6 +59,10 @@
       <filter-name>LoginFilter</filter-name>
       <servlet-name>DeleteMaintenanceServlet</servlet-name>
   </filter-mapping>
+  <filter-mapping>
+      <filter-name>LoginFilter</filter-name>
+      <servlet-name>SeeAllOwnManagedMaintenanceServlet</servlet-name>
+  </filter-mapping>
   
   <!-- SERVLETS -->
   <servlet>
@@ -116,6 +120,10 @@
   <servlet>
   	<servlet-name>DeleteMaintenanceServlet</servlet-name>
   	<servlet-class>be.petrucci.servlets.DeleteMaintenanceServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>SeeAllOwnManagedMaintenanceServlet</servlet-name>
+  	<servlet-class>be.petrucci.servlets.SeeAllOwnManagedMaintenanceServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -202,6 +210,12 @@
   	<url-pattern>/DeleteMaintenanceServlet</url-pattern>
   	<url-pattern>/deletemaintenance</url-pattern>
   	<url-pattern>/DeleteMaintenance</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SeeAllOwnManagedMaintenanceServlet</servlet-name>
+  	<url-pattern>/SeeAllOwnManagedMaintenanceServlet</url-pattern>
+  	<url-pattern>/SeeAllOwnManagedMaintenance</url-pattern>
+  	<url-pattern>/seeallownManagedmaintenance</url-pattern>
   </servlet-mapping>
 </web-app>
 

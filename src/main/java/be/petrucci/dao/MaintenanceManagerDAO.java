@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.ws.rs.core.MediaType;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.ClientResponse;
 
@@ -43,7 +44,25 @@ public class MaintenanceManagerDAO extends DAO<MaintenanceManager> {
 	}
 
 	public MaintenanceManager find(MaintenanceManager obj) {
-		return null;
+		try {
+	        ClientResponse res = this.getResource()
+	                .path("manager")
+	                .path(String.valueOf(obj.getId()))
+	                .accept(MediaType.APPLICATION_JSON)
+	                .get(ClientResponse.class);
+	        
+	        if (res.getStatus() == 200) {
+	            String response = res.getEntity(String.class);
+
+	            MaintenanceManager manager = getMapper().readValue(response, MaintenanceManager.class);
+	            return manager;
+	        } else {
+	            System.out.println("Erreur lors de l'appel API, statut : " + res.getStatus());
+	        }
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	    }
+	    return null;
 	}
 
 	public ArrayList<MaintenanceManager> findAll() {

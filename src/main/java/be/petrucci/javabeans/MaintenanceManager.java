@@ -3,6 +3,7 @@ package be.petrucci.javabeans;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
+
 import be.petrucci.dao.MaintenanceManagerDAO;
 
 public class MaintenanceManager extends User implements Serializable{
@@ -43,6 +44,10 @@ public class MaintenanceManager extends User implements Serializable{
 		this.maintenance = maintenanceList;
 	}
 	
+	public MaintenanceManager(int id) {
+		this.setId(id);
+	}
+	
 	//Methods
 	public boolean addMaintenanceManager() {
 		MaintenanceManagerDAO maintenanceManagerDAO = new MaintenanceManagerDAO();
@@ -79,11 +84,29 @@ public class MaintenanceManager extends User implements Serializable{
 	    }
 	    return true;
 	}
+	
+	public void getMyMaintenances(ArrayList<Maintenance> maintenanceList) {
+	    ArrayList<Maintenance> selectedMaintenances = new ArrayList<>();
+
+	    for (Maintenance m : maintenanceList) {
+	        if (m.getMachine() != null) {
+	            if (m.getManager().getId() == this.getId()) {
+	                selectedMaintenances.add(m);
+	            }
+	        }
+	    }
+	    this.setMaintenance(selectedMaintenances);
+	}
 
 	
 	//DAO methods
 	public boolean createMaintenanceManager(MaintenanceManagerDAO dao) {
 		return dao.create(this);
+	}
+	
+	public static MaintenanceManager getManagerDetail(MaintenanceManager manager) {
+		MaintenanceManagerDAO dao = new MaintenanceManagerDAO();
+		return dao.find(manager);
 	}
 
 	@Override
