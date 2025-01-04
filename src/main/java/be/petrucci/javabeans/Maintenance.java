@@ -8,6 +8,8 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import be.petrucci.dao.MaintenanceDAO;
 
 public class Maintenance implements Serializable {
@@ -206,7 +208,24 @@ public class Maintenance implements Serializable {
 		MaintenanceDAO dao = new MaintenanceDAO();
 		return dao.findAll();
 	}
-	
+
+	public static ArrayList<Maintenance> getInProgressMaintenanceByWorker(ArrayList<Maintenance> maintenanceList, User user) {
+		return new ArrayList<Maintenance>(maintenanceList
+			.stream()
+			.filter(m -> {
+				if (m.getStatus() == MaintenanceStatus.Validated) {
+					return false;
+				}
+				for (var w : m.getWorkers()) {
+					if (w.getId() == user.getId()) {
+						return true;
+					}
+				}
+				return false;
+			})
+			.collect(Collectors.toList()));
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		Maintenance m = null;

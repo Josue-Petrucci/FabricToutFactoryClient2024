@@ -48,7 +48,13 @@
         			<button onclick="window.location='/FabricToutFactoryClient2024/SeeAllMaintenanceServlet'">See all maintenance</button>
         			<br>
        			<%
-       			}
+				}
+				if(user.isRole("Admin") || user.isRole("MWork")){
+				%>
+					<button onclick="window.location='/FabricToutFactoryClient2024/SeeAllWorkerWorkInProgressServlet'">See all maintenance</button>
+					<br>
+				<%
+				}
 			%>
        		<%@ include file="LogoutPartialView.jsp" %>
 		    <%
