@@ -63,6 +63,17 @@ public class MaintenanceDAO extends DAO<Maintenance>{
 	}
 
 	public boolean update(Maintenance obj) {
+		try {
+			String json = new ObjectMapper().writeValueAsString(obj);
+			ClientResponse res = this.getResource()
+					.path("maintenance")
+					.type(MediaType.APPLICATION_JSON)
+					.accept(MediaType.APPLICATION_JSON)
+					.put(ClientResponse.class, json);
+			return res.getStatus() == 200;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 

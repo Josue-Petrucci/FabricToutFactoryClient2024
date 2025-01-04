@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="be.petrucci.javabeans.Maintenance" %>
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>In progress maintenances</title>
 </head>
 <body>
 	<h1>List of all maintenance</h1><br>
@@ -35,6 +35,7 @@
 				<td><%= m.getWorkers().size() %></td>
 				<td><%= m.getStatus() %></td>
 				<td><a href="DetailMaintenanceServlet?id=<%= m.getId() %>">Detail</a></td>
+				<td><a href="CompleteMaintenanceServlet?id=<%= m.getId() %>">Complete</a></td>
 			</tr>
 			<% 
 					}
