@@ -63,6 +63,14 @@
       <filter-name>LoginFilter</filter-name>
       <servlet-name>SeeAllOwnManagedMaintenanceServlet</servlet-name>
   </filter-mapping>
+  <filter-mapping>
+	<filter-name>LoginFilter</filter-name>
+	<servlet-name>UpdateMachineServlet</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+	<filter-name>LoginFilter</filter-name>
+	<servlet-name>SeeAllWorkerWorkInProgressServlet</servlet-name>
+  </filter-mapping>
   
   <!-- SERVLETS -->
   <servlet>
@@ -124,6 +132,14 @@
   <servlet>
   	<servlet-name>SeeAllOwnManagedMaintenanceServlet</servlet-name>
   	<servlet-class>be.petrucci.servlets.SeeAllOwnManagedMaintenanceServlet</servlet-class>
+  </servlet>
+  <servlet>
+	<servlet-name>UpdateMachineServlet</servlet-name>
+	<servlet-class>be.petrucci.servlets.UpdateMachineServlet</servlet-class>
+  </servlet>
+  <servlet>
+	<servlet-name>SeeAllWorkerWorkInProgressServlet</servlet-name>
+	<servlet-class>be.petrucci.servlets.SeeAllWorkerWorkInProgressServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -216,6 +232,18 @@
   	<url-pattern>/SeeAllOwnManagedMaintenanceServlet</url-pattern>
   	<url-pattern>/SeeAllOwnManagedMaintenance</url-pattern>
   	<url-pattern>/seeallownManagedmaintenance</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+	<servlet-name>UpdateMachineServlet</servlet-name>
+	<url-pattern>/UpdateMachineServlet</url-pattern>
+	<url-pattern>/UpdateMachine</url-pattern>
+	<url-pattern>/updatemachine</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+	<servlet-name>SeeAllWorkerWorkInProgressServlet</servlet-name>
+	<url-pattern>/SeeAllWorkerWorkInProgressServlet</url-pattern>
+	<url-pattern>/SeeAllWorkerWorkInProgress</url-pattern>
+	<url-pattern>/seeallworkerworkInprogress</url-pattern>
   </servlet-mapping>
 </web-app>
 
