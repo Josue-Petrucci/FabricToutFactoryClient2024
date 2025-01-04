@@ -94,7 +94,7 @@ public class AddMaintenanceServlet extends HttpServlet {
 		    }
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        request.setAttribute("fail", "Error for addition maintenance submition!");
+	        request.setAttribute("fail", "Error for addition maintenance submission!");
 	        getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
 			return;
 	    }

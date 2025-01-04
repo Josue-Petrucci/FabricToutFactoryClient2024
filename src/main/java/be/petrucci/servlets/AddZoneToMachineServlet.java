@@ -76,7 +76,7 @@ public class AddZoneToMachineServlet extends HttpServlet {
 		    return;
 		}
 		else {
-			request.setAttribute("fail", "Error for Zone selection submition!");
+			request.setAttribute("fail", "Error for Zone selection submission!");
 			getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
 			return;
 		}

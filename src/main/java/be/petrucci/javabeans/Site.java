@@ -3,6 +3,9 @@ package be.petrucci.javabeans;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
+
+import be.petrucci.dao.SiteDAO;
 
 public class Site implements Serializable {
 	private static final long serialVersionUID = -2933081182814214954L;
@@ -88,10 +91,24 @@ public class Site implements Serializable {
 		this.factory = new Factory(idFactory, nameFactory, this);
 	}
 	
+	//Methods
 	public void addZone(Zone zone) {
 		if(!zones.contains(zone)) {
 			zones.add(zone);
 		}
+	}
+	
+	public static Site giveSelectedSite(ArrayList<Site> siteList, String id){
+		Optional<Site> selectedSiteList = siteList.stream()
+                .filter(m -> m.getId() == Integer.parseInt(id))
+                .findFirst();
+	    return selectedSiteList.get();
+	}
+	
+	//DAO methods
+	public static ArrayList<Site> getAllSites() {
+		SiteDAO dao = new SiteDAO();
+		return dao.findAll();
 	}
 	
 	@Override

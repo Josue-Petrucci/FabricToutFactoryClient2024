@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Choose the machine and the worker for the maintenance</title>
 </head>
 <body>
@@ -24,7 +24,7 @@
             <thead>
                 <tr>
                     <th>Select</th>
-                    <th>Zone Details</th>
+                    <th>Machine Details</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,7 +53,7 @@
             <thead>
                 <tr>
                     <th>Select</th>
-                    <th>Zone Details</th>
+                    <th>Worker Details</th>
                 </tr>
             </thead>
             <tbody>

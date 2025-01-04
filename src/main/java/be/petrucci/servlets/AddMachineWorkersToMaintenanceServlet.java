@@ -93,7 +93,7 @@ public class AddMachineWorkersToMaintenanceServlet extends HttpServlet {
 		    response.sendRedirect(request.getContextPath() + "/AddMaintenanceServlet");
 		    return;
 		} else {
-			request.setAttribute("fail", "Error for machine and worker selection submition!");
+			request.setAttribute("fail", "Error for machine and worker selection submission!");
 			getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
 			return;
 		}
