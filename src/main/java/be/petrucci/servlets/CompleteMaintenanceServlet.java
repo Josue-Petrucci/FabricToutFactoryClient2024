@@ -42,6 +42,7 @@ public class CompleteMaintenanceServlet extends HttpServlet {
 				getServletContext()
 					.getRequestDispatcher("/WEB-INF/JSP/Home.jsp")
 					.forward(request, response);
+				return;
 			}
 
 			request.setAttribute("maintenance", maintenance);
