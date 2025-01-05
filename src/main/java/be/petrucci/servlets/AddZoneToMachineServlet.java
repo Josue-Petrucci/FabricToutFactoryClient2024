@@ -21,7 +21,7 @@ public class AddZoneToMachineServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (!isUserLoggedIn(request)) {
-        	if(!isUserAdmin(request) || !isUserPuEmp(request)) {
+        	if(!(isUserAdmin(request) || isUserPuEmp(request))) {
                 forwardToLogin(request, response);
                 return;
         	}
@@ -40,7 +40,7 @@ public class AddZoneToMachineServlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!isUserLoggedIn(request)) {
-        	if(!isUserAdmin(request) || !isUserPuEmp(request)) {
+        	if(!(isUserAdmin(request) || isUserPuEmp(request))) {
                 forwardToLogin(request, response);
                 return;
         	}

@@ -25,7 +25,7 @@ public class DetailMaintenanceServlet extends HttpServlet {
 		
 		int id = Integer.parseInt(request.getParameter("id"));
 		if(id == 0) {
-			request.setAttribute("fail", "Error no valid machine chosen for deletion!");
+			request.setAttribute("fail", "Error no valid maintenance chosen!");
 			getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
 			return;
 		}

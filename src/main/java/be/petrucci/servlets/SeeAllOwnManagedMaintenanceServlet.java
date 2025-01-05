@@ -18,7 +18,7 @@ public class SeeAllOwnManagedMaintenanceServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!isUserLoggedIn(request)) {
-        	if(!isUserAdmin(request) || !isUserPuEmp(request)) {
+        	if(!(isUserAdmin(request) || isUserMMana(request))) {
                 forwardToLogin(request, response);
                 return;
         	}
@@ -62,13 +62,13 @@ public class SeeAllOwnManagedMaintenanceServlet extends HttpServlet {
         return user.isRole("Admin");
     }
 	
-	private boolean isUserPuEmp(HttpServletRequest request) {
+	private boolean isUserMMana(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
             return false;
         }
         User user = (User) session.getAttribute("user");
-        return user.isRole("PuEmp");
+        return user.isRole("MMana");
     }
 
     private void forwardToLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -20,7 +20,7 @@ public class SeeAllMaintenanceServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!isUserLoggedIn(request)) {
-        	if(!isUserAdmin(request) || !isUserPuEmp(request)) {
+        	if(!(isUserAdmin(request) || isUserPuEmp(request))) {
                 forwardToLogin(request, response);
                 return;
         	}
