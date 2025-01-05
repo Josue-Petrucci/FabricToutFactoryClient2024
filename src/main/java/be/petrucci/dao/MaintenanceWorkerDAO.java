@@ -8,7 +8,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import be.petrucci.javabeans.MaintenanceWorker;
 
-public class MaintenanceWorkerDAO extends DAO<MaintenanceWorker>{
+public class MaintenanceWorkerDAO extends DAO<MaintenanceWorker> {
 
 	public MaintenanceWorkerDAO() {
 		super();
@@ -33,13 +33,11 @@ public class MaintenanceWorkerDAO extends DAO<MaintenanceWorker>{
 	public ArrayList<MaintenanceWorker> findAll() {
 		ArrayList<MaintenanceWorker> workers = new ArrayList<MaintenanceWorker>();
 		try {
-			String response = getResource()
-					.path("worker")
-					.accept(MediaType.APPLICATION_JSON)
-					.get(String.class);
-			
-			workers = getMapper().readValue(response, new TypeReference<ArrayList<MaintenanceWorker>>() {});
-		}catch (Exception e) {
+			String response = getResource().path("worker").accept(MediaType.APPLICATION_JSON).get(String.class);
+
+			workers = getMapper().readValue(response, new TypeReference<ArrayList<MaintenanceWorker>>() {
+			});
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return workers;

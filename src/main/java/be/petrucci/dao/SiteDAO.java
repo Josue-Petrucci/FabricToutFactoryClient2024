@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import be.petrucci.javabeans.Site;
 
-public class SiteDAO extends DAO<Site>{
+public class SiteDAO extends DAO<Site> {
 
 	public SiteDAO() {
 		super();
@@ -32,17 +32,14 @@ public class SiteDAO extends DAO<Site>{
 	}
 
 	public ArrayList<Site> findAll() {
-		String responseJSON = this.getResource()
-				.path("site")
-				.accept(MediaType.APPLICATION_JSON)
-				.get(String.class);
+		String responseJSON = this.getResource().path("site").accept(MediaType.APPLICATION_JSON).get(String.class);
 		ArrayList<Site> siteList = new ArrayList<Site>();
 		JSONArray array = new JSONArray(responseJSON);
 		ObjectMapper mapper = new ObjectMapper();
-		for(int i =0;i<array.length();i++) {
+		for (int i = 0; i < array.length(); i++) {
 			String siteJSON = array.get(i).toString();
 			try {
-				siteList.add(mapper.readValue(siteJSON,Site.class));
+				siteList.add(mapper.readValue(siteJSON, Site.class));
 			} catch (JsonParseException e) {
 				e.printStackTrace();
 			} catch (JsonMappingException e) {

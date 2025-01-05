@@ -9,14 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 public class HomServlet extends HttpServlet {
 	private static final long serialVersionUID = -3498060122040282478L;
 
-	public HomServlet() {}
+	public HomServlet() {
+	}
 
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 }

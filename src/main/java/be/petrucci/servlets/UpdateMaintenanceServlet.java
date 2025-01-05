@@ -12,17 +12,17 @@ import be.petrucci.javabeans.User;
 
 public class UpdateMaintenanceServlet extends HttpServlet {
 	private static final long serialVersionUID = 9184600316851950282L;
-	
-	public UpdateMaintenanceServlet() {}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public UpdateMaintenanceServlet() {
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		if (!userHasAccess(request)) {
-			getServletContext()
-				.getRequestDispatcher("/WEB-INF/JSP/Login.jsp")
-				.forward(request, response);
+			getServletContext().getRequestDispatcher("/WEB-INF/JSP/Login.jsp").forward(request, response);
 			return;
 		}
-		
+
 		try {
 			int id = Integer.parseInt(request.getParameter("id"));
 			if (id == 0) {
@@ -30,9 +30,7 @@ public class UpdateMaintenanceServlet extends HttpServlet {
 				sendHome(request, response);
 				return;
 			}
-			var managerUser = (User)request
-				.getSession()
-				.getAttribute("user");
+			var managerUser = (User) request.getSession().getAttribute("user");
 			var manager = new MaintenanceManager();
 			manager.setId(managerUser.getId());
 			manager.getMyMaintenances(Maintenance.getAllMaintenance());
@@ -43,7 +41,8 @@ public class UpdateMaintenanceServlet extends HttpServlet {
 				return;
 			}
 			if (maintenance.getStatus() != MaintenanceStatus.Completed) {
-				request.setAttribute("fail", "Cannot validate a maintenance with '" + String.valueOf(maintenance.getStatus()) + "' status!");
+				request.setAttribute("fail",
+						"Cannot validate a maintenance with '" + String.valueOf(maintenance.getStatus()) + "' status!");
 				sendHome(request, response);
 				return;
 			}
@@ -65,11 +64,12 @@ public class UpdateMaintenanceServlet extends HttpServlet {
 			sendHome(request, response);
 		} catch (NumberFormatException e) {
 			request.setAttribute("fail", "Invalid maintenance id!");
-			
+
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
@@ -78,13 +78,12 @@ public class UpdateMaintenanceServlet extends HttpServlet {
 		if (session == null) {
 			return false;
 		}
-		var user = (User)session.getAttribute("user");
+		var user = (User) session.getAttribute("user");
 		return user != null && (user.isRole("MMana"));
 	}
-	
-	private void sendHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		getServletContext()
-			.getRequestDispatcher("/WEB-INF/JSP/Home.jsp")
-			.forward(request, response);
+
+	private void sendHome(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
 	}
 }

@@ -16,25 +16,28 @@ import be.petrucci.javabeans.User;
 public class PuEmpFilter extends HttpFilter implements Filter {
 	private static final long serialVersionUID = -9066166430889708263L;
 
-	public PuEmpFilter() {}
+	public PuEmpFilter() {
+	}
 
-    public void destroy() {}
+	public void destroy() {
+	}
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpSession session = req.getSession(false);
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpSession session = req.getSession(false);
 
-        User user = (session != null) ? (User) session.getAttribute("user") : null;
+		User user = (session != null) ? (User) session.getAttribute("user") : null;
 
-        if (user != null && (user.isRole("PuEmp") || user.isRole("Admin"))) {
-            chain.doFilter(request, response);
-        } else {
-            req.setAttribute("fail", "Access denied. PuEmp or Admin role required.");
-            req.getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
-        }
-    }
+		if (user != null && (user.isRole("PuEmp") || user.isRole("Admin"))) {
+			chain.doFilter(request, response);
+		} else {
+			req.setAttribute("fail", "Access denied. PuEmp or Admin role required.");
+			req.getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
+		}
+	}
 
-    public void init(FilterConfig fConfig) throws ServletException {}
+	public void init(FilterConfig fConfig) throws ServletException {
+	}
 }

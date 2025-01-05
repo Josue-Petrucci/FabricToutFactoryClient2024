@@ -16,109 +16,112 @@ import be.petrucci.javabeans.User;
 public class AddMachineWorkersToMaintenanceServlet extends HttpServlet {
 	private static final long serialVersionUID = 2880066007232949518L;
 
-	public AddMachineWorkersToMaintenanceServlet() {}
+	public AddMachineWorkersToMaintenanceServlet() {
+	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		if (!isUserLoggedIn(request)) {
-        	if(!(isUserAdmin(request) || isUserPuEmp(request))) {
-                forwardToLogin(request, response);
-                return;
-        	}
+			if (!(isUserAdmin(request) || isUserPuEmp(request))) {
+				forwardToLogin(request, response);
+				return;
+			}
 		}
-    	ArrayList<Machine> machines = Machine.getAllMachine();
-    	ArrayList<MaintenanceWorker> workers = MaintenanceWorker.getAllWorkers();
-    	
-    	HttpSession session = request.getSession();
-    	session.setAttribute("listMachine", machines);
-    	session.setAttribute("listWorker", workers);
-    	
-    	request.setAttribute("Machines", machines);
-    	request.setAttribute("Workers", workers);
-    	
+		ArrayList<Machine> machines = Machine.getAllMachine();
+		ArrayList<MaintenanceWorker> workers = MaintenanceWorker.getAllWorkers();
+
+		HttpSession session = request.getSession();
+		session.setAttribute("listMachine", machines);
+		session.setAttribute("listWorker", workers);
+
+		request.setAttribute("Machines", machines);
+		request.setAttribute("Workers", workers);
+
 		User managerUser = (User) session.getAttribute("user");
 		MaintenanceManager manager = MaintenanceManager.getManagerDetail(new MaintenanceManager(managerUser.getId()));
 		request.setAttribute("manager", manager);
-    	
-    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/JSP/AddMachineWorkersToMaintenance.jsp");
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/JSP/AddMachineWorkersToMaintenance.jsp");
 		dispatcher.forward(request, response);
 		return;
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		if (!isUserLoggedIn(request)) {
-        	if(!(isUserAdmin(request) || isUserPuEmp(request))) {
-                forwardToLogin(request, response);
-                return;
-        	}
-        }
-		
-		if(request.getParameter("submit") != null) {
+			if (!(isUserAdmin(request) || isUserPuEmp(request))) {
+				forwardToLogin(request, response);
+				return;
+			}
+		}
+
+		if (request.getParameter("submit") != null) {
 			String selectedMachineId = request.getParameter("selectedMachineId");
 			String[] selectedWorkerIds = request.getParameterValues("selectedWorkerIds");
-		    
-		    if (selectedMachineId == null) {
-		    	request.setAttribute("fail", "No Machine chosen!");
+
+			if (selectedMachineId == null) {
+				request.setAttribute("fail", "No Machine chosen!");
 				doGet(request, response);
 				return;
-		    }
-				
-		    if (selectedWorkerIds == null || selectedWorkerIds.length == 0) {
-		    	request.setAttribute("fail", "No Worker chosen!");
-		    	doGet(request, response);
+			}
+
+			if (selectedWorkerIds == null || selectedWorkerIds.length == 0) {
+				request.setAttribute("fail", "No Worker chosen!");
+				doGet(request, response);
 				return;
-		    }
-		    
-		    HttpSession session = request.getSession();
-		    ArrayList<Machine> machineList = (ArrayList<Machine>) session.getAttribute("listMachine");
-        	ArrayList<MaintenanceWorker> workerList = (ArrayList<MaintenanceWorker>) session.getAttribute("listWorker");
-        	
-        	Machine machine = Machine.giveSelectedMachine(machineList, selectedMachineId);
-        	ArrayList<MaintenanceWorker> workers = MaintenanceWorker.giveSelectedWorkers(workerList, selectedWorkerIds);
-        	
-        	
-        	session.setAttribute("listMachine", null);
-        	session.setAttribute("machine", machine);
-        	session.setAttribute("listWorker", workers);
-		    
-		    response.sendRedirect(request.getContextPath() + "/AddMaintenanceServlet");
-		    return;
+			}
+
+			HttpSession session = request.getSession();
+			ArrayList<Machine> machineList = (ArrayList<Machine>) session.getAttribute("listMachine");
+			ArrayList<MaintenanceWorker> workerList = (ArrayList<MaintenanceWorker>) session.getAttribute("listWorker");
+
+			Machine machine = Machine.giveSelectedMachine(machineList, selectedMachineId);
+			ArrayList<MaintenanceWorker> workers = MaintenanceWorker.giveSelectedWorkers(workerList, selectedWorkerIds);
+
+			session.setAttribute("listMachine", null);
+			session.setAttribute("machine", machine);
+			session.setAttribute("listWorker", workers);
+
+			response.sendRedirect(request.getContextPath() + "/AddMaintenanceServlet");
+			return;
 		} else {
 			request.setAttribute("fail", "Error for machine and worker selection submission!");
 			getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
 			return;
 		}
 	}
-	
-	private boolean isUserLoggedIn(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return false;
-        }
-        User user = (User) session.getAttribute("user");
-        return user != null;
-    }
-	
-	private boolean isUserAdmin(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return false;
-        }
-        User user = (User) session.getAttribute("user");
-        return user.isRole("Admin");
-    }
-	
-	private boolean isUserPuEmp(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return false;
-        }
-        User user = (User) session.getAttribute("user");
-        return user.isRole("PuEmp");
-    }
 
-    private void forwardToLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/WEB-INF/JSP/Login.jsp").forward(request, response);
-        return;
-    }
+	private boolean isUserLoggedIn(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return false;
+		}
+		User user = (User) session.getAttribute("user");
+		return user != null;
+	}
+
+	private boolean isUserAdmin(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return false;
+		}
+		User user = (User) session.getAttribute("user");
+		return user.isRole("Admin");
+	}
+
+	private boolean isUserPuEmp(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return false;
+		}
+		User user = (User) session.getAttribute("user");
+		return user.isRole("PuEmp");
+	}
+
+	private void forwardToLogin(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		getServletContext().getRequestDispatcher("/WEB-INF/JSP/Login.jsp").forward(request, response);
+		return;
+	}
 }

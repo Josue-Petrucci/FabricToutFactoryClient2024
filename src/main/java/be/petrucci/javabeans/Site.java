@@ -21,31 +21,31 @@ public class Site implements Serializable {
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getCity() {
 		return city;
 	}
-	
+
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
+
 	public Factory getFactory() {
 		return factory;
 	}
-	
+
 	public void setFactory(Factory factory) {
 		this.factory = factory;
 	}
@@ -57,7 +57,7 @@ public class Site implements Serializable {
 	public void setZones(ArrayList<Zone> zones) {
 		this.zones = zones;
 	}
-	
+
 	public ArrayList<Machine> getMachines() {
 		return machines;
 	}
@@ -65,7 +65,7 @@ public class Site implements Serializable {
 	public void setMachines(ArrayList<Machine> machines) {
 		this.machines = machines;
 	}
-	
+
 	public ArrayList<MaintenanceManager> getListMaintenanceManagers() {
 		return listMaintenanceManagers;
 	}
@@ -82,7 +82,8 @@ public class Site implements Serializable {
 		this.listMaintenanceWorkers = listMaintenanceWorkers;
 	}
 
-	public Site() {}
+	public Site() {
+	}
 
 	public Site(int idSite, String nameSite, String city, int idFactory, String nameFactory) {
 		this.id = idSite;
@@ -90,27 +91,25 @@ public class Site implements Serializable {
 		this.city = city;
 		this.factory = new Factory(idFactory, nameFactory, this);
 	}
-	
-	//Methods
+
+	// Methods
 	public void addZone(Zone zone) {
-		if(!zones.contains(zone)) {
+		if (!zones.contains(zone)) {
 			zones.add(zone);
 		}
 	}
-	
-	public static Site giveSelectedSite(ArrayList<Site> siteList, String id){
-		Optional<Site> selectedSiteList = siteList.stream()
-                .filter(m -> m.getId() == Integer.parseInt(id))
-                .findFirst();
-	    return selectedSiteList.get();
+
+	public static Site giveSelectedSite(ArrayList<Site> siteList, String id) {
+		Optional<Site> selectedSiteList = siteList.stream().filter(m -> m.getId() == Integer.parseInt(id)).findFirst();
+		return selectedSiteList.get();
 	}
-	
-	//DAO methods
+
+	// DAO methods
 	public static ArrayList<Site> getAllSites() {
 		SiteDAO dao = new SiteDAO();
 		return dao.findAll();
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -126,19 +125,14 @@ public class Site implements Serializable {
 				&& Objects.equals(machines, other.machines) && Objects.equals(name, other.name)
 				&& Objects.equals(zones, other.zones);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(city, factory, id, listMaintenanceManagers, listMaintenanceWorkers, machines, name, zones);
 	}
-	
+
 	@Override
 	public String toString() {
-	    return String.format(
-	        "Site [Name: %s, City: %s, %s]", 
-	        name, 
-	        city, 
-	        factory.toString()
-	    );
+		return String.format("Site [Name: %s, City: %s, %s]", name, city, factory.toString());
 	}
 }

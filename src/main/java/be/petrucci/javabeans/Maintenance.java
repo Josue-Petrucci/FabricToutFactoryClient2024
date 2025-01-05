@@ -22,51 +22,51 @@ public class Maintenance implements Serializable {
 	private MaintenanceManager manager;
 	private ArrayList<MaintenanceWorker> workers;
 	private Machine machine;
-	
+
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public Date getDate() {
 		return date;
 	}
-	
+
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+
 	public int getDuration() {
 		return duration;
 	}
-	
+
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
-	
+
 	public String getInstructions() {
 		return instructions;
 	}
-	
+
 	public void setInstructions(String instructions) {
 		this.instructions = instructions;
 	}
-	
+
 	public String getReport() {
 		return report;
 	}
-	
+
 	public void setReport(String report) {
 		this.report = report;
 	}
-	
+
 	public MaintenanceStatus getStatus() {
 		return status;
 	}
-	
+
 	public void setStatus(MaintenanceStatus status) {
 		this.status = status;
 	}
@@ -94,9 +94,10 @@ public class Maintenance implements Serializable {
 	public void setMachine(Machine machine) {
 		this.machine = machine;
 	}
-	
-	public Maintenance() {}
-	
+
+	public Maintenance() {
+	}
+
 	public Maintenance(int id, Date date, int duration, String instruction, String report, MaintenanceStatus status) {
 		this.id = id;
 		this.date = date;
@@ -113,8 +114,9 @@ public class Maintenance implements Serializable {
 		this.machine = machine;
 		addWorker(worker);
 	}
-	
-	public Maintenance(Date date, int duration, String instruction, Machine machine, MaintenanceManager manager, ArrayList<MaintenanceWorker> workers) {
+
+	public Maintenance(Date date, int duration, String instruction, Machine machine, MaintenanceManager manager,
+			ArrayList<MaintenanceWorker> workers) {
 		this.date = date;
 		this.duration = duration;
 		this.instructions = instruction;
@@ -123,8 +125,9 @@ public class Maintenance implements Serializable {
 		this.manager = manager;
 		this.workers = workers;
 	}
-	
-	public Maintenance(Date date, int duration, String instruction, String report, MaintenanceStatus status, Machine machine, MaintenanceManager manager, ArrayList<MaintenanceWorker> workers, int id) {
+
+	public Maintenance(Date date, int duration, String instruction, String report, MaintenanceStatus status,
+			Machine machine, MaintenanceManager manager, ArrayList<MaintenanceWorker> workers, int id) {
 		this.date = date;
 		this.duration = duration;
 		this.instructions = instruction;
@@ -135,75 +138,73 @@ public class Maintenance implements Serializable {
 		this.workers = workers;
 		this.id = id;
 	}
-	
-	//Methods
+
+	// Methods
 	public void addWorker(MaintenanceWorker worker) {
-		if(!workers.contains(worker)) {
+		if (!workers.contains(worker)) {
 			workers.add(worker);
 		}
 	}
-	
+
 	public static List<String> validate(String dateParam, String durationParam, String instructionParam) {
-        List<String> errors = new ArrayList<>();
-        
-        Date date = null;
-        if (dateParam == null || dateParam.trim().isEmpty()) {
-            errors.add("Date is required.");
-        } else {
-            try {
-                date = Date.valueOf(LocalDate.parse(dateParam, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-                if (date.before(Date.valueOf(LocalDate.now()))) {
-                    errors.add("The date cannot be in the past.");
-                }
-            } catch (DateTimeParseException e) {
-                errors.add("Invalid date format. Use yyyy-MM-dd.");
-            }
-        }
+		List<String> errors = new ArrayList<>();
 
-        if (durationParam == null || durationParam.trim().isEmpty()) {
-            errors.add("Duration is required.");
-        } else {
-            try {
-                int duration = Integer.parseInt(durationParam);
-                if (duration <= 0) {
-                    errors.add("Duration must be a positive number.");
-                }
-            } catch (NumberFormatException e) {
-                errors.add("Invalid duration. It must be a number.");
-            }
-        }
+		Date date = null;
+		if (dateParam == null || dateParam.trim().isEmpty()) {
+			errors.add("Date is required.");
+		} else {
+			try {
+				date = Date.valueOf(LocalDate.parse(dateParam, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+				if (date.before(Date.valueOf(LocalDate.now()))) {
+					errors.add("The date cannot be in the past.");
+				}
+			} catch (DateTimeParseException e) {
+				errors.add("Invalid date format. Use yyyy-MM-dd.");
+			}
+		}
 
-        if (instructionParam == null || instructionParam.trim().isEmpty()) {
-            errors.add("Instructions are required.");
-        } else if (!instructionParam.matches("[a-zA-Z0-9\\s!@#$%^&*(),.?\":{}|<>]+")) {
-            errors.add("Instructions contain invalid characters.");
-        }
-        return errors;
-    }
-	
-	public static Maintenance giveSelectedMaintenance(ArrayList<Maintenance> maintenanceList, int id){
-		Optional<Maintenance> selectedMaintenance = maintenanceList.stream()
-                .filter(m -> m.getId() == id)
-                .findFirst();
-	    return selectedMaintenance.get();
+		if (durationParam == null || durationParam.trim().isEmpty()) {
+			errors.add("Duration is required.");
+		} else {
+			try {
+				int duration = Integer.parseInt(durationParam);
+				if (duration <= 0) {
+					errors.add("Duration must be a positive number.");
+				}
+			} catch (NumberFormatException e) {
+				errors.add("Invalid duration. It must be a number.");
+			}
+		}
+
+		if (instructionParam == null || instructionParam.trim().isEmpty()) {
+			errors.add("Instructions are required.");
+		} else if (!instructionParam.matches("[a-zA-Z0-9\\s!@#$%^&*(),.?\":{}|<>]+")) {
+			errors.add("Instructions contain invalid characters.");
+		}
+		return errors;
 	}
-	
+
+	public static Maintenance giveSelectedMaintenance(ArrayList<Maintenance> maintenanceList, int id) {
+		Optional<Maintenance> selectedMaintenance = maintenanceList.stream().filter(m -> m.getId() == id).findFirst();
+		return selectedMaintenance.get();
+	}
+
 	public boolean deleteMaintenance() {
 		MaintenanceDAO maintenanceDAO = new MaintenanceDAO();
 		return deleteMaintenance(maintenanceDAO);
 	}
 
-	//DAO methods
+	// DAO methods
 	public boolean createMaintenance() {
 		MaintenanceDAO dao = new MaintenanceDAO();
 		return dao.create(this);
 	}
-	
+
 	public boolean deleteMaintenance(MaintenanceDAO dao) {
 		return dao.delete(this);
 	}
-	
-	public static ArrayList<Maintenance> getAllMaintenance(){
+
+	public static ArrayList<Maintenance> getAllMaintenance() {
 		MaintenanceDAO dao = new MaintenanceDAO();
 		return dao.findAll();
 	}
@@ -220,14 +221,14 @@ public class Maintenance implements Serializable {
 	@Override
 	public boolean equals(Object obj) {
 		Maintenance m = null;
-		if(obj == null || obj.getClass() != this.getClass()) {
+		if (obj == null || obj.getClass() != this.getClass()) {
 			return false;
 		}
-		
-		m = (Maintenance)obj;
+
+		m = (Maintenance) obj;
 		return m.getId() == this.getId();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return this.getInstructions().hashCode();

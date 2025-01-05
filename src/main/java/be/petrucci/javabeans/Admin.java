@@ -4,8 +4,9 @@ import java.io.Serializable;
 
 public class Admin extends User implements Serializable {
 	private static final long serialVersionUID = -4621245361944258008L;
-	
-	public Admin() {}
+
+	public Admin() {
+	}
 
 	public Admin(int id, String lastname, String firstname, int age, String address, String matricule,
 			String password) {
@@ -26,5 +27,5 @@ public class Admin extends User implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		return true;
-	}	
+	}
 }

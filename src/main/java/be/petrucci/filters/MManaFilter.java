@@ -16,25 +16,28 @@ import be.petrucci.javabeans.User;
 public class MManaFilter extends HttpFilter implements Filter {
 	private static final long serialVersionUID = -3655026308512426949L;
 
-	public MManaFilter() {}
+	public MManaFilter() {
+	}
 
-    public void destroy() {}
+	public void destroy() {
+	}
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpSession session = req.getSession(false);
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpSession session = req.getSession(false);
 
-        User user = (session != null) ? (User) session.getAttribute("user") : null;
+		User user = (session != null) ? (User) session.getAttribute("user") : null;
 
-        if (user != null && user.isRole("MMana")) {
-            chain.doFilter(request, response);
-        } else {
-            req.setAttribute("fail", "Access denied. MMana role required.");
-            req.getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
-        }
-    }
+		if (user != null && user.isRole("MMana")) {
+			chain.doFilter(request, response);
+		} else {
+			req.setAttribute("fail", "Access denied. MMana role required.");
+			req.getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
+		}
+	}
 
-    public void init(FilterConfig fConfig) throws ServletException {}
+	public void init(FilterConfig fConfig) throws ServletException {
+	}
 }

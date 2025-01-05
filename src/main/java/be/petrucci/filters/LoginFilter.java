@@ -16,25 +16,28 @@ public class LoginFilter extends HttpFilter implements Filter {
 
 	private static final long serialVersionUID = -4810983948034968675L;
 
-    public LoginFilter() {}
-
-	public void destroy() {}
-
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
-        HttpSession session = req.getSession(false);
-        String loginURI = req.getContextPath();
-
-        boolean login = session != null && session.getAttribute("user") != null;
-        if(login) {
-            chain.doFilter(request, response);
-        }
-        else {
-        	res.sendRedirect(loginURI);
-        }
+	public LoginFilter() {
 	}
 
-	public void init(FilterConfig fConfig) throws ServletException {}
+	public void destroy() {
+	}
+
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse res = (HttpServletResponse) response;
+		HttpSession session = req.getSession(false);
+		String loginURI = req.getContextPath();
+
+		boolean login = session != null && session.getAttribute("user") != null;
+		if (login) {
+			chain.doFilter(request, response);
+		} else {
+			res.sendRedirect(loginURI);
+		}
+	}
+
+	public void init(FilterConfig fConfig) throws ServletException {
+	}
 
 }

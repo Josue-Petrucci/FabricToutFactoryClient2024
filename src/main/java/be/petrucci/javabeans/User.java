@@ -13,64 +13,65 @@ public class User implements Serializable {
 	private String address;
 	private String matricule;
 	private String password;
-	
+
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public String getLastname() {
 		return lastname;
 	}
-	
+
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-	
+
 	public String getFirstname() {
 		return firstname;
 	}
-	
+
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
-	
+
 	public int getAge() {
 		return age;
 	}
-	
+
 	public void setAge(int age) {
 		this.age = age;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
-	
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 	public String getMatricule() {
 		return matricule;
 	}
-	
+
 	public void setMatricule(String matricule) {
 		this.matricule = matricule;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	public User() {}
+
+	public User() {
+	}
 
 	public User(int id, String lastname, String firstname, int age, String address, String matricule, String password) {
 		this.id = id;
@@ -81,34 +82,33 @@ public class User implements Serializable {
 		this.matricule = matricule;
 		this.password = password;
 	}
-	
-	//Methods
+
+	// Methods
 	public static User login(User user) {
 		if (!user.paramsAreValid()) {
 			User newUser = findUser(user);
 			return newUser;
-        }
+		}
 		return null;
 	}
-	
+
 	private boolean paramsAreValid() {
-		if (this.getMatricule() == null || this.getMatricule().equals("") 
-				|| this.getMatricule().length() < 7 || this.getPassword() == null 
-				|| this.getPassword().equals("") || this.getPassword().length() < 5) {
+		if (this.getMatricule() == null || this.getMatricule().equals("") || this.getMatricule().length() < 7
+				|| this.getPassword() == null || this.getPassword().equals("") || this.getPassword().length() < 5) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public boolean isRole(String role) {
-	    if (matricule == null || matricule.length() < 5 || role == null) {
-	        return false;
-	    }
-	    
-	    return matricule.substring(0, 5).equalsIgnoreCase(role);
+		if (matricule == null || matricule.length() < 5 || role == null) {
+			return false;
+		}
+
+		return matricule.substring(0, 5).equalsIgnoreCase(role);
 	}
 
-	//DAO Methods
+	// DAO Methods
 	private static User findUser(User user) {
 		UserDAO userDAO = new UserDAO();
 		return userDAO.find(user);

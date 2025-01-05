@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import be.petrucci.javabeans.Zone;
 
-public class ZoneDAO extends DAO<Zone>{
+public class ZoneDAO extends DAO<Zone> {
 
 	public ZoneDAO() {
 		super();
@@ -36,17 +36,14 @@ public class ZoneDAO extends DAO<Zone>{
 	}
 
 	public ArrayList<Zone> findAll() {
-		String responseJSON = this.getResource()
-				.path("zone")
-				.accept(MediaType.APPLICATION_JSON)
-				.get(String.class);
+		String responseJSON = this.getResource().path("zone").accept(MediaType.APPLICATION_JSON).get(String.class);
 		ArrayList<Zone> zoneList = new ArrayList<Zone>();
 		JSONArray array = new JSONArray(responseJSON);
 		ObjectMapper mapper = new ObjectMapper();
-		for(int i =0;i<array.length();i++) {
+		for (int i = 0; i < array.length(); i++) {
 			String zoneJSON = array.get(i).toString();
 			try {
-				zoneList.add(mapper.readValue(zoneJSON,Zone.class));
+				zoneList.add(mapper.readValue(zoneJSON, Zone.class));
 			} catch (JsonParseException e) {
 				e.printStackTrace();
 			} catch (JsonMappingException e) {

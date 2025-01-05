@@ -21,101 +21,106 @@ import be.petrucci.javabeans.User;
 public class AddMaintenanceServlet extends HttpServlet {
 	private static final long serialVersionUID = -720626763990810887L;
 
-	public AddMaintenanceServlet() {}
+	public AddMaintenanceServlet() {
+	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		if (!isUserLoggedIn(request)) {
-        	if(!isUserMMana(request)) {
-                forwardToLogin(request, response);
-                return;
-        	}
-        }
-		
+			if (!isUserMMana(request)) {
+				forwardToLogin(request, response);
+				return;
+			}
+		}
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/JSP/AddMaintenance.jsp");
 		dispatcher.forward(request, response);
 		return;
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		if (!isUserLoggedIn(request)) {
-        	if(!isUserMMana(request)) {
-                forwardToLogin(request, response);
-                return;
-        	}
-        }
-		
-		 new ArrayList<>();
+			if (!isUserMMana(request)) {
+				forwardToLogin(request, response);
+				return;
+			}
+		}
+
+		new ArrayList<>();
 		try {
 			HttpSession session = request.getSession();
 			User user = (User) session.getAttribute("user");
 			MaintenanceManager manager = new MaintenanceManager();
-		    manager.setId(user.getId());
-	        manager.setLastname(user.getLastname());
-	        manager.setFirstname(user.getFirstname());
-	        manager.setAge(user.getAge());
-	        manager.setAddress(user.getAddress());
-	        manager.setMatricule(user.getMatricule());
-	        manager.setPassword(user.getPassword());
-	        
-	        String dateParam = request.getParameter("date");
-	        String durationParam = request.getParameter("duration");
-	        String instruction = request.getParameter("instruction");
+			manager.setId(user.getId());
+			manager.setLastname(user.getLastname());
+			manager.setFirstname(user.getFirstname());
+			manager.setAge(user.getAge());
+			manager.setAddress(user.getAddress());
+			manager.setMatricule(user.getMatricule());
+			manager.setPassword(user.getPassword());
 
-	        List<String> errors = Maintenance.validate(dateParam, durationParam, instruction);
+			String dateParam = request.getParameter("date");
+			String durationParam = request.getParameter("duration");
+			String instruction = request.getParameter("instruction");
 
-	        if (!errors.isEmpty()) {
-	            request.setAttribute("fail", errors);
-	            doGet(request, response);
-	            return;
-	        }
-	        
-	        Machine machine = (Machine) session.getAttribute("machine");
-	        ArrayList<MaintenanceWorker> workers = ( ArrayList<MaintenanceWorker>) session.getAttribute("listWorker");
-	        
-		    Maintenance maintenance = new Maintenance(Date.valueOf(LocalDate.parse(dateParam, DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
-		    		Integer.parseInt(durationParam), instruction, machine, manager, workers);
-		    
-		    session.setAttribute("machine", null);
-        	session.setAttribute("listWorker", null);
-		    
-		    if(maintenance.createMaintenance()) {
-		    	request.setAttribute("success", "Maintenance successful create !!");
-	        	getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
+			List<String> errors = Maintenance.validate(dateParam, durationParam, instruction);
+
+			if (!errors.isEmpty()) {
+				request.setAttribute("fail", errors);
+				doGet(request, response);
 				return;
-		    } else {
-		    	request.setAttribute("fail", "Error with the connection of the data base !!");
-	        	getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
+			}
+
+			Machine machine = (Machine) session.getAttribute("machine");
+			ArrayList<MaintenanceWorker> workers = (ArrayList<MaintenanceWorker>) session.getAttribute("listWorker");
+
+			Maintenance maintenance = new Maintenance(
+					Date.valueOf(LocalDate.parse(dateParam, DateTimeFormatter.ofPattern("yyyy-MM-dd"))),
+					Integer.parseInt(durationParam), instruction, machine, manager, workers);
+
+			session.setAttribute("machine", null);
+			session.setAttribute("listWorker", null);
+
+			if (maintenance.createMaintenance()) {
+				request.setAttribute("success", "Maintenance successful create !!");
+				getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
 				return;
-		    }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        request.setAttribute("fail", "Error for addition maintenance submission!");
-	        getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
+			} else {
+				request.setAttribute("fail", "Error with the connection of the data base !!");
+				getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
+				return;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("fail", "Error for addition maintenance submission!");
+			getServletContext().getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
 			return;
-	    }
+		}
 	}
-	
-	private boolean isUserLoggedIn(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return false;
-        }
-        User user = (User) session.getAttribute("user");
-        return user != null;
-    }
-	
-	private boolean isUserMMana(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return false;
-        }
-        User user = (User) session.getAttribute("user");
-        return user.isRole("MMana");
-    }
 
-    private void forwardToLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/WEB-INF/JSP/Login.jsp").forward(request, response);
-    }
+	private boolean isUserLoggedIn(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return false;
+		}
+		User user = (User) session.getAttribute("user");
+		return user != null;
+	}
+
+	private boolean isUserMMana(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return false;
+		}
+		User user = (User) session.getAttribute("user");
+		return user.isRole("MMana");
+	}
+
+	private void forwardToLogin(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		getServletContext().getRequestDispatcher("/WEB-INF/JSP/Login.jsp").forward(request, response);
+	}
 
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import be.petrucci.javabeans.PurchaseEmployee;
 
-public class PurchaseEmployeeDAO extends DAO<PurchaseEmployee>{
+public class PurchaseEmployeeDAO extends DAO<PurchaseEmployee> {
 
 	public PurchaseEmployeeDAO() {
 		super();
