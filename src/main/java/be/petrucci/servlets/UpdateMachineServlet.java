@@ -18,6 +18,7 @@ public class UpdateMachineServlet extends HttpServlet {
 
 	public UpdateMachineServlet() {}
 
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!userHasAccess(request)) {
 			getServletContext()

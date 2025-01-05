@@ -8,6 +8,7 @@
 <jsp:include page="/WEB-INF/JSP/Bootstrap.jsp"/>
 </head>
 <body>
+	<h1>Welcome to the Fabric'Tout login page!</h1>
     <div class="container">
         <% if (request.getAttribute("success") != null) { %>
             <div class="alert alert-success mt-3">

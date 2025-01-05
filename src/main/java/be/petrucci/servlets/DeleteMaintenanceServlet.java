@@ -16,7 +16,7 @@ public class DeleteMaintenanceServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!isUserLoggedIn(request)) {
-        	if(!isUserAdmin(request) || !isUserPuEmp(request)) {
+        	if(!isUserMMana(request)) {
                 forwardToLogin(request, response);
                 return;
         	}
@@ -54,22 +54,13 @@ public class DeleteMaintenanceServlet extends HttpServlet {
         return user != null;
     }
 	
-	private boolean isUserAdmin(HttpServletRequest request) {
+	private boolean isUserMMana(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
             return false;
         }
         User user = (User) session.getAttribute("user");
-        return user.isRole("Admin");
-    }
-	
-	private boolean isUserPuEmp(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return false;
-        }
-        User user = (User) session.getAttribute("user");
-        return user.isRole("PuEmp");
+        return user.isRole("MMana");
     }
 
     private void forwardToLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

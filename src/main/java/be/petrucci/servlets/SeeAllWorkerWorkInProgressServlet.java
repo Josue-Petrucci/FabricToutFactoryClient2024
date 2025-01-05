@@ -45,6 +45,6 @@ public class SeeAllWorkerWorkInProgressServlet extends HttpServlet {
 			return false;
 		}
 		var user = (User)session.getAttribute("user");
-		return user != null && (user.isRole("MWork") || user.isRole("Admin"));
+		return user != null && (user.isRole("MWork"));
 	}
 }

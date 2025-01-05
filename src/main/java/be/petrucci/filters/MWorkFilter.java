@@ -28,10 +28,10 @@ public class MWorkFilter extends HttpFilter implements Filter {
 
         User user = (session != null) ? (User) session.getAttribute("user") : null;
 
-        if (user != null && (user.isRole("MWork") || user.isRole("Admin"))) {
+        if (user != null && user.isRole("MWork")) {
             chain.doFilter(request, response);
         } else {
-            req.setAttribute("fail", "Access denied. MWork or Admin role required.");
+            req.setAttribute("fail", "Access denied. MWork role required.");
             req.getRequestDispatcher("/WEB-INF/JSP/Home.jsp").forward(request, response);
         }
     }

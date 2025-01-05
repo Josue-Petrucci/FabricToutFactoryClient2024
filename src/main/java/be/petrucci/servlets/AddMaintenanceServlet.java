@@ -25,7 +25,7 @@ public class AddMaintenanceServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!isUserLoggedIn(request)) {
-        	if(!isUserAdmin(request) || !isUserMMana(request)) {
+        	if(!isUserMMana(request)) {
                 forwardToLogin(request, response);
                 return;
         	}
@@ -39,7 +39,7 @@ public class AddMaintenanceServlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!isUserLoggedIn(request)) {
-        	if(!isUserAdmin(request) || !isUserMMana(request)) {
+        	if(!isUserMMana(request)) {
                 forwardToLogin(request, response);
                 return;
         	}
@@ -103,15 +103,6 @@ public class AddMaintenanceServlet extends HttpServlet {
         }
         User user = (User) session.getAttribute("user");
         return user != null;
-    }
-	
-	private boolean isUserAdmin(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return false;
-        }
-        User user = (User) session.getAttribute("user");
-        return user.isRole("Admin");
     }
 	
 	private boolean isUserMMana(HttpServletRequest request) {

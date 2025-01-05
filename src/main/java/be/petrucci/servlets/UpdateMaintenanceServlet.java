@@ -1,13 +1,10 @@
 package be.petrucci.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import be.petrucci.javabeans.Maintenance;
 import be.petrucci.javabeans.MaintenanceManager;
 import be.petrucci.javabeans.MaintenanceStatus;
@@ -15,6 +12,8 @@ import be.petrucci.javabeans.User;
 
 public class UpdateMaintenanceServlet extends HttpServlet {
 	private static final long serialVersionUID = 9184600316851950282L;
+	
+	public UpdateMaintenanceServlet() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!userHasAccess(request)) {
@@ -80,7 +79,7 @@ public class UpdateMaintenanceServlet extends HttpServlet {
 			return false;
 		}
 		var user = (User)session.getAttribute("user");
-		return user != null && (user.isRole("MMana") || user.isRole("Admin"));
+		return user != null && (user.isRole("MMana"));
 	}
 	
 	private void sendHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

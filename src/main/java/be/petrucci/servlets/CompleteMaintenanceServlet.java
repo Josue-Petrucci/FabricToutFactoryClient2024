@@ -15,6 +15,7 @@ import be.petrucci.javabeans.User;
 public class CompleteMaintenanceServlet extends HttpServlet {
 	private static final long serialVersionUID = -8433305872201971142L;
 
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!userHasAccess(request)) {
 			getServletContext()
@@ -59,6 +60,7 @@ public class CompleteMaintenanceServlet extends HttpServlet {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!userHasAccess(request)) {
 			getServletContext()
@@ -128,6 +130,6 @@ public class CompleteMaintenanceServlet extends HttpServlet {
 			return false;
 		}
 		var user = (User)session.getAttribute("user");
-		return user != null && (user.isRole("MWork") || user.isRole("Admin"));
+		return user != null && (user.isRole("MWork"));
 	}
 }

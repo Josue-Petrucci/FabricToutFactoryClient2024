@@ -19,10 +19,8 @@ public class DetailMaintenanceServlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (!isUserLoggedIn(request)) {
-        	if(!isUserAdmin(request) || !isUserPuEmp(request)) {
-                forwardToLogin(request, response);
-                return;
-        	}
+            forwardToLogin(request, response);
+            return;
         }
 		
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -54,24 +52,6 @@ public class DetailMaintenanceServlet extends HttpServlet {
         }
         User user = (User) session.getAttribute("user");
         return user != null;
-    }
-	
-	private boolean isUserAdmin(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return false;
-        }
-        User user = (User) session.getAttribute("user");
-        return user.isRole("Admin");
-    }
-	
-	private boolean isUserPuEmp(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
-            return false;
-        }
-        User user = (User) session.getAttribute("user");
-        return user.isRole("PuEmp");
     }
 
     private void forwardToLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

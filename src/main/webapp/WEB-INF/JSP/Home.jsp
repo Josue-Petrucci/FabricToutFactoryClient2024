@@ -24,34 +24,40 @@
 	    User user = (User) session.getAttribute("user");
 	    if (user == null) {
 	%>
-        <button onclick="window.location='/FabricToutFactoryClient2024/LoginServlet'">Login</button>
+        <button class="btn btn-primary" onclick="window.location='/FabricToutFactoryClient2024/LoginServlet'">Login</button>
 		<%
 		    } else {
 		    	if(user.isRole("Admin")){
 				%>
-				    <button onclick="window.location='/FabricToutFactoryClient2024/AddSiteToRegisterServlet'">Register a new user</button>
+				    <button class="btn btn-primary" onclick="window.location='/FabricToutFactoryClient2024/AddSiteToRegisterServlet'">Register a new user</button>
+				    <br>
 				    <br>
 				<%
 				}
         		if(user.isRole("Admin") || user.isRole("PuEmp")){
 				%>
-			        <button onclick="window.location='/FabricToutFactoryClient2024/AddZoneToMachineServlet'">Purchase new machine</button>
+			        <button class="btn btn-primary" onclick="window.location='/FabricToutFactoryClient2024/AddZoneToMachineServlet'">Purchase new machine</button>
 			        <br>
-			        <button onclick="window.location='/FabricToutFactoryClient2024/SeeAllMachinesServlet'">See all Machines</button>
+			        <br>
+			        <button class="btn btn-primary" onclick="window.location='/FabricToutFactoryClient2024/SeeAllMachinesServlet'">See all Machines</button>
+			        <br>
 			        <br>
 				<%
 				}
 	        	if(user.isRole("MMana")){
         		%>
-        			<button onclick="window.location='/FabricToutFactoryClient2024/AddMachineWorkersToMaintenanceServlet'">Create a maintenance</button>
+        			<button class="btn btn-primary" onclick="window.location='/FabricToutFactoryClient2024/AddMachineWorkersToMaintenanceServlet'">Create a maintenance</button>
         			<br>
-        			<button onclick="window.location='/FabricToutFactoryClient2024/SeeAllOwnManagedMaintenanceServlet'">To see all own managed maintenances</button>
+        			<br>
+        			<button class="btn btn-primary" onclick="window.location='/FabricToutFactoryClient2024/SeeAllOwnManagedMaintenanceServlet'">To see all own managed maintenances</button>
+        			<br>
         			<br>
        			<%
 				}
-				if(user.isRole("Admin") || user.isRole("MWork")){
+				if(user.isRole("MWork")){
 				%>
-					<button onclick="window.location='/FabricToutFactoryClient2024/SeeAllWorkerWorkInProgressServlet'">See all maintenance</button>
+					<button class="btn btn-primary" onclick="window.location='/FabricToutFactoryClient2024/SeeAllWorkerWorkInProgressServlet'">See all maintenance</button>
+					<br>
 					<br>
 				<%
 				}
