@@ -56,6 +56,11 @@
 		all Machines</button>
 	<br>
 	<br>
+	<button class="btn btn-primary"
+		onclick="window.location='/FabricToutFactoryClient2024/SeeAllMaintenanceServlet'">See
+		all Maintenance</button>
+	<br>
+	<br>
 	<%
 	}
 	if (user.isRole("MMana")) {
